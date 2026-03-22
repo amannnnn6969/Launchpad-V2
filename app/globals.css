@@ -111,3 +111,29 @@ body {
 .animate-fade-up-3 { opacity: 0; animation: fadeUp 0.8s 0.7s forwards; }
 .animate-fade-up-4 { opacity: 0; animation: fadeUp 0.8s 0.9s forwards; }
 .animate-fade-up-5 { opacity: 0; animation: fadeUp 0.8s 1.3s forwards; }
+
+/* ── Mobile responsive ── */
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  #cursor, #cursor-ring { display: none; }
+
+  /* sections padding */
+  section, .section-wrap { padding: 4rem 1.5rem !important; }
+  #services, #portfolio, #contact { padding: 3rem 1.5rem !important; margin-bottom: 2rem !important; border-radius: 1.2rem !important; }
+  .cta-banner { padding: 3rem 1.5rem !important; margin-bottom: 3rem !important; border-radius: 1.2rem !important; }
+  .cta-banner::before { font-size: 6rem !important; }
+
+  /* grids → single column */
+  .who-grid,
+  .services-grid,
+  .portfolio-grid,
+  .process-steps,
+  .contact-grid,
+  .form-row { grid-template-columns: 1fr !important; }
+
+  /* process connector line */
+  .process-steps::before { display: none; }
+
+  /* footer */
+  footer .footer-inner { flex-direction: column; text-align: center; gap: 1.2rem; }
+}
