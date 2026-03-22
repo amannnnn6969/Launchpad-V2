@@ -1,0 +1,36 @@
+"use client";
+import { useInView } from "react-intersection-observer";
+
+const steps = [
+  { num: 1, title: "Free Audit", desc: "We review your online presence and show you exactly what's costing you customers." },
+  { num: 2, title: "Strategy Call", desc: "We align on goals, timeline, and budget. No pushy sales — just honest conversation." },
+  { num: 3, title: "We Build", desc: "You'll see a live preview within 2 weeks to review and give feedback." },
+  { num: 4, title: "You Launch", desc: "Go live and start seeing results. We handle domain, hosting, and the full launch checklist." },
+];
+
+export default function Process() {
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  return (
+    <section id="process" style={{ padding: "7rem 3rem", maxWidth: 1200, margin: "0 auto" }}>
+      <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "4rem" }}>
+        <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(1.9rem,3.5vw,2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>Simple process, stunning results</h2>
+        <p style={{ color: "var(--muted)", marginTop: "0.7rem" }}>From first call to live site in weeks — not months.</p>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "1.5rem", position: "relative" }}>
+        <div style={{ position: "absolute", top: "2.4rem", left: "12%", right: "12%", height: 1, background: "linear-gradient(to right,transparent,var(--accent),transparent)" }} />
+        {steps.map((s, i) => <StepCard key={s.num} s={s} delay={i * 80} />)}
+      </div>
+    </section>
+  );
+}
+
+function StepCard({ s, delay }: { s: typeof steps[0]; delay: number }) {
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  return (
+    <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ textAlign: "center", padding: "1.5rem 1rem", transitionDelay: `${delay}ms` }}>
+      <div style={{ width: 46, height: 46, borderRadius: "50%", background: "var(--accent)", color: "#fff", fontFamily: "Syne, sans-serif", fontWeight: 800, fontSize: "1.05rem", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.2rem", boxShadow: "0 0 0 6px var(--accent-glow)" }}>{s.num}</div>
+      <h3 style={{ fontFamily: "Syne, sans-serif", fontSize: "1rem", fontWeight: 700, marginBottom: "0.5rem", color: "var(--text)" }}>{s.title}</h3>
+      <p style={{ color: "var(--muted)", fontSize: "0.82rem", lineHeight: 1.65 }}>{s.desc}</p>
+    </div>
+  );
+}
