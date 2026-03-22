@@ -50,7 +50,7 @@ export default function Contact() {
         <div className={`reveal ${inView ? "visible" : ""}`}>
           <h3 style={{ fontFamily: "Syne, sans-serif", fontSize: "1.3rem", fontWeight: 800, color: "var(--text)", marginBottom: "1rem" }}>Get your free audit</h3>
           <p style={{ color: "var(--text2)", lineHeight: 1.8, fontSize: "0.92rem", marginBottom: "1.5rem" }}>No pitch, no pressure. We&apos;ll look at your current online presence and give you an honest breakdown of what&apos;s working and what isn&apos;t.</p>
-          {[["📧", "hello@launchpad.agency"], ["📞", "+91 98765 43210"], ["📍", "Mumbai, India — serving clients nationwide"]].map(([icon, text]) => (
+          {[["📧", "launchpadwebagency@gmail.com"], ["📞", "+91 99952 69743"], ["📍", "Dubai, UAE — serving clients nationwide"]].map(([icon, text]) => (
             <div key={text} style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1rem", color: "var(--text2)", fontSize: "0.88rem" }}>
               <div style={{ width: 34, height: 34, background: "var(--accent-glow)", border: "1px solid var(--border2)", borderRadius: "0.6rem", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.95rem", flexShrink: 0 }}>{icon}</div>
               {text}
