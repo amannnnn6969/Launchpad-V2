@@ -121,7 +121,7 @@ export default function Hero() {
     >
       <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, zIndex: 0 }} />
 
-      <div style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: 820, padding: "0 2rem" }}>
+      <div style={{ overflow: "hidden",position: "relative", zIndex: 2, textAlign: "center", maxWidth: 820, padding: "0 2rem" }}>
         <p className="animate-fade-up-1" style={{ fontSize: "0.76rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "1.5rem" }}>
           ✦ Web Agency for Local Businesses
         </p>
