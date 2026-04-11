@@ -5,8 +5,11 @@ import Cursor from "@/components/Cursor";
 
 export const metadata: Metadata = {
   title: "Launchpad — Custom Web Experiences",
-  description:
-    "Custom-coded in Next.js. Cinematic in motion. Built for brands that refuse to blend in.",
+  description: "Custom-coded in Next.js. Cinematic in motion. Built for brands that refuse to blend in.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
