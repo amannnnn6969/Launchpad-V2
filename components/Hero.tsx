@@ -168,9 +168,9 @@ export default function Hero() {
         height: "100vh",
         display: "flex",
         alignItems: "center",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         overflow: "hidden",
-        paddingLeft: isMobile ? "1.5rem" : "clamp(2rem, 8vw, 9rem)",
+        paddingLeft: isMobile ? "1.5rem" : "2rem",
         paddingRight: isMobile ? "1.5rem" : "2rem",
       }}
     >
@@ -194,10 +194,11 @@ export default function Hero() {
         style={{
           position: "relative",
           zIndex: 2,
-          textAlign: "left",
+          textAlign: "center",
           width: "100%",
           maxWidth: isMobile ? "100%" : 680,
-          paddingTop: "80px",
+          margin: "0 auto",
+          paddingTop: "140px",
           paddingBottom: "80px",
         }}
       >
@@ -211,8 +212,8 @@ export default function Hero() {
             letterSpacing: "-0.04em",
             marginBottom: isMobile ? "1.2rem" : "1.8rem",
             color: "var(--text)",
-            wordBreak: "break-word",
-            overflowWrap: "break-word",
+            wordBreak: "normal",
+            overflowWrap: "normal",
           }}
         >
           We build
@@ -268,7 +269,7 @@ export default function Hero() {
           style={{
             display: "flex",
             gap: "1rem",
-            justifyContent: "flex-start",
+            justifyContent: "center",
             alignItems: isMobile ? "stretch" : "center",
             flexDirection: isMobile ? "column" : "row",
             flexWrap: "wrap",
