@@ -8,7 +8,6 @@ import Process from "@/components/Process";
 import Contact from "@/components/Contact";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
-import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
@@ -23,7 +22,6 @@ export default function Home() {
       <Contact />
       <CtaBanner />
       <Footer />
-      <ThemeToggle />
     </main>
   );
 }

@@ -3,12 +3,12 @@ import { useInView } from "react-intersection-observer";
 import { useState, useEffect } from "react";
 
 const services = [
-  { icon: "⚡", title: "Lightning-Fast Websites", desc: "Blazing performance, buttery animations, and mobile-first design. Your site will feel like a premium product.", tag: "Core service" },
-  { icon: "🎯", title: "Conversion Optimization", desc: "We design with one goal: turning visitors into customers. Every button and headline is intentional.", tag: "Core service" },
-  { icon: "🔍", title: "Local SEO Domination", desc: "Show up first when people search for what you do in your city. Google loves our sites.", tag: "Growth add-on" },
-  { icon: "🛒", title: "E-commerce & Booking", desc: "Online stores, appointment booking, event ticketing — systems that make money while you sleep.", tag: "Growth add-on" },
-  { icon: "✨", title: "Brand & Visual Identity", desc: "Logos, color systems, fonts — design language that makes you look like a nationally-known brand.", tag: "Add-on" },
-  { icon: "🔧", title: "Care Plans & Support", desc: "We don't disappear after launch. Ongoing maintenance so your site always runs perfectly.", tag: "Ongoing" },
+  { num: "01", title: "Custom Web Development", desc: "Hand-coded in Next.js 14. No templates, no shortcuts. Every interaction is intentional, every pixel earns its place." },
+  { num: "02", title: "Motion & Interaction Design", desc: "Framer Motion animations and Three.js experiences that make visitors stop scrolling and start feeling something." },
+  { num: "03", title: "SEO & Performance", desc: "Built to rank and built to load. Core Web Vitals-optimised from the ground up, not bolted on after." },
+  { num: "04", title: "E-commerce & Booking Systems", desc: "Revenue infrastructure that runs while you sleep — stores, bookings, memberships, all seamlessly integrated." },
+  { num: "05", title: "Brand & Visual Identity", desc: "Typography systems, colour palettes, design language. We build brands that look like they belong on billboards." },
+  { num: "06", title: "Ongoing Partnership", desc: "We don't disappear post-launch. Monthly retainers for studios and brands that want a technical partner, not a vendor." },
 ];
 
 function ServiceCard({ s, delay, isMobile }: { s: typeof services[0]; delay: number; isMobile: boolean }) {
@@ -23,10 +23,9 @@ function ServiceCard({ s, delay, isMobile }: { s: typeof services[0]; delay: num
         onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--accent2)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-6px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 40px var(--accent-glow)"; }}
         onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "none"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
       >
-        <span style={{ fontSize: "1.8rem", marginBottom: "1rem", display: "block" }}>{s.icon}</span>
+        <span style={{ fontFamily: "Syne, sans-serif", fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.12em", color: "var(--accent)", marginBottom: "1rem", display: "block" }}>{s.num}</span>
         <div style={{ fontFamily: "Syne, sans-serif", fontSize: "1.08rem", fontWeight: 700, marginBottom: "0.6rem", color: "var(--text)" }}>{s.title}</div>
         <div style={{ color: "var(--text2)", fontSize: "0.87rem", lineHeight: 1.7 }}>{s.desc}</div>
-        <span style={{ display: "inline-block", marginTop: "1rem", background: "var(--accent-glow)", color: "var(--accent)", fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.28rem 0.8rem", borderRadius: "2rem", border: "1px solid var(--border2)" }}>{s.tag}</span>
       </div>
     </div>
   );
@@ -51,8 +50,7 @@ export default function Services() {
       transition: "background 0.5s, border-color 0.5s",
     }}>
       <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "3rem" }}>
-        <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem, 3.5vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>What we build for you</h2>
-        <p style={{ color: "var(--muted)", marginTop: "0.7rem", fontSize: "0.95rem" }}>Everything you need to dominate your market online — nothing you don&apos;t.</p>
+        <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem, 3.5vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>What we do</h2>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: "1.4rem" }}>
         {services.map((s, i) => <ServiceCard key={s.title} s={s} delay={i * 60} isMobile={isMobile} />)}

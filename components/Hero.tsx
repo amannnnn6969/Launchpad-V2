@@ -1,13 +1,65 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
+
+const PHRASES = [
+  "demand attention.",
+  "convert visitors.",
+  "outlast trends.",
+  "reflect your craft.",
+];
+
+function useMagnet(strength = 0.4) {
+  const ref = useRef<HTMLButtonElement>(null);
+  const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 80) {
+      el.style.transition = "transform 0.15s cubic-bezier(0.23,1,0.32,1)";
+      el.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
+    }
+  };
+  const handleMouseLeave = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transition = "transform 0.4s cubic-bezier(0.23,1,0.32,1)";
+    el.style.transform = "translate(0,0)";
+  };
+  return { ref, handleMouseMove, handleMouseLeave };
+}
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
   const themeRef = useRef(theme);
   useEffect(() => { themeRef.current = theme; }, [theme]);
+
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPhraseIndex((i) => (i + 1) % PHRASES.length);
+    }, 3000);
+    return () => clearInterval(id);
+  }, []);
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const viewMagnet = useMagnet(0.4);
+  const startMagnet = useMagnet(0.4);
 
   useEffect(() => {
     let THREE: typeof import("three");
@@ -19,8 +71,9 @@ export default function Hero() {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
+      const mobileViewport = window.innerWidth < 768;
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobileViewport ? 1 : 2));
       renderer.setSize(window.innerWidth, window.innerHeight);
 
       const scene = new THREE.Scene();
@@ -115,75 +168,117 @@ export default function Hero() {
         height: "100vh",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         overflow: "hidden",
+        paddingLeft: isMobile ? "1.5rem" : "clamp(2rem, 8vw, 9rem)",
+        paddingRight: isMobile ? "1.5rem" : "2rem",
       }}
     >
       <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, zIndex: 0 }} />
 
-      <div style={{ overflow: "hidden",position: "relative", zIndex: 2, textAlign: "center", maxWidth: 820, padding: "0 2rem" }}>
-        <p className="animate-fade-up-1" style={{ fontSize: "0.76rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "1.5rem" }}>
-          ✦ Web Agency for Local Businesses
-        </p>
+      {/* Film grain overlay */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          pointerEvents: "none",
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E\")",
+          opacity: 0.035,
+        }}
+      />
 
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          textAlign: "left",
+          width: "100%",
+          maxWidth: isMobile ? "100%" : 680,
+          paddingTop: "80px",
+          paddingBottom: "80px",
+        }}
+      >
         <h1
           className="animate-fade-up-2"
           style={{
             fontFamily: "Syne, sans-serif",
             fontWeight: 800,
-            fontSize: "clamp(2.8rem, 7.5vw, 6rem)",
-            lineHeight: 1.02,
+            fontSize: isMobile ? "clamp(2rem, 8vw, 3rem)" : "clamp(2.6rem, 5.8vw, 5.2rem)",
+            lineHeight: 1.0,
             letterSpacing: "-0.04em",
-            marginBottom: "1.8rem",
+            marginBottom: isMobile ? "1.2rem" : "1.8rem",
             color: "var(--text)",
+            wordBreak: "break-word",
+            overflowWrap: "break-word",
           }}
         >
-          You&apos;re great locally.
+          We build
           <br />
-          Let&apos;s make you{" "}
-          <em
+          web experiences
+          <br />
+          that
+          <br />
+          <span
             style={{
-              color: "var(--accent)",
-              fontStyle: "normal",
               position: "relative",
               display: "inline-block",
+              overflow: "hidden",
+              verticalAlign: "bottom",
+              lineHeight: 1.15,
+              paddingBottom: "0.1em",
+              maxWidth: "100%",
             }}
           >
-            unstoppable
-            <span
-              style={{
-                position: "absolute",
-                bottom: 3,
-                left: 0,
-                right: 0,
-                height: 3,
-                background: "var(--accent)",
-                borderRadius: 2,
-                opacity: 0.5,
-                display: "block",
-              }}
-            />
-          </em>{" "}
-          online.
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={PHRASES[phraseIndex]}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                style={{
+                  display: "inline-block",
+                  color: "var(--accent)",
+                }}
+              >
+                {PHRASES[phraseIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </span>
         </h1>
 
         <p
           className="animate-fade-up-3"
           style={{
-            fontSize: "1.03rem",
+            fontSize: isMobile ? "0.9rem" : "1.03rem",
             color: "var(--text2)",
             lineHeight: 1.75,
-            maxWidth: 520,
-            margin: "0 auto 2.5rem",
+            maxWidth: 460,
+            margin: isMobile ? "0 0 1.8rem" : "0 0 2.5rem",
           }}
         >
-          We build jaw-dropping, high-converting websites for businesses that
-          have mastered their craft — and deserve a digital presence that
-          matches.
+          Custom-coded in Next.js. Cinematic in motion. Built for brands that refuse to blend in.
         </p>
 
-        <div className="animate-fade-up-4" style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+        <div
+          className="animate-fade-up-4"
+          style={{
+            display: "flex",
+            gap: "1rem",
+            justifyContent: "flex-start",
+            alignItems: isMobile ? "stretch" : "center",
+            flexDirection: isMobile ? "column" : "row",
+            flexWrap: "wrap",
+            width: isMobile ? "100%" : "auto",
+          }}
+        >
           <button
+            ref={viewMagnet.ref}
+            onMouseMove={viewMagnet.handleMouseMove}
+            onMouseLeave={viewMagnet.handleMouseLeave}
             onClick={() => scrollTo("portfolio")}
             style={{
               background: "var(--accent)",
@@ -195,20 +290,17 @@ export default function Hero() {
               fontWeight: 500,
               cursor: "pointer",
               fontFamily: "Inter, sans-serif",
-              transition: "transform 0.2s, box-shadow 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px var(--accent-glow)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "none";
+              width: isMobile ? "100%" : "auto",
+              maxWidth: isMobile ? "280px" : "none",
+              willChange: "transform",
             }}
           >
-            See our work ↗
+            View selected work →
           </button>
           <button
+            ref={startMagnet.ref}
+            onMouseMove={startMagnet.handleMouseMove}
+            onMouseLeave={startMagnet.handleMouseLeave}
             onClick={() => scrollTo("contact")}
             style={{
               background: "transparent",
@@ -219,18 +311,12 @@ export default function Hero() {
               fontSize: "0.95rem",
               cursor: "pointer",
               fontFamily: "Inter, sans-serif",
-              transition: "border-color 0.2s, background 0.2s",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--accent)";
-              (e.currentTarget as HTMLElement).style.background = "var(--accent-glow)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--border2)";
-              (e.currentTarget as HTMLElement).style.background = "transparent";
+              width: isMobile ? "100%" : "auto",
+              maxWidth: isMobile ? "280px" : "none",
+              willChange: "transform",
             }}
           >
-            Book a free call
+            Start a project
           </button>
         </div>
       </div>
@@ -240,9 +326,10 @@ export default function Hero() {
         className="animate-fade-up-5"
         style={{
           position: "absolute",
-          bottom: "2rem",
+          bottom: "3.5rem",
           left: "50%",
           transform: "translateX(-50%)",
+          zIndex: 3,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -262,6 +349,45 @@ export default function Hero() {
           }}
         />
         scroll
+      </div>
+
+      {/* Bottom info strip */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 3,
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          padding: isMobile ? "0.9rem 1.5rem" : "1rem clamp(2rem, 8vw, 9rem)",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          background: "linear-gradient(to top, rgba(5,13,26,0.6), transparent)",
+          fontFamily: "Inter, sans-serif",
+          fontSize: "0.65rem",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          color: "var(--muted)",
+        }}
+      >
+        {!isMobile && <span>Mumbai, India</span>}
+        <span style={{ display: "flex", alignItems: "center", gap: "0.55rem", margin: isMobile ? "0 auto" : 0 }}>
+          <span
+            className="hero-status-dot"
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: "#22c55e",
+              boxShadow: "0 0 6px #22c55e",
+              display: "inline-block",
+            }}
+          />
+          Currently taking projects
+        </span>
+        {!isMobile && <span>© 2025 Launchpad</span>}
       </div>
     </section>
   );

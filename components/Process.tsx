@@ -1,5 +1,6 @@
 "use client";
 import { useInView } from "react-intersection-observer";
+import { useState, useEffect } from "react";
 
 const steps = [
   { num: 1, title: "Free Audit", desc: "We review your online presence and show you exactly what's costing you customers." },
@@ -10,14 +11,22 @@ const steps = [
 
 export default function Process() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
-    <section id="process" style={{ padding: "7rem 3rem", maxWidth: 1200, margin: "0 auto" }}>
-      <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "4rem" }}>
-        <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: "clamp(1.9rem,3.5vw,2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>Simple process, stunning results</h2>
-        <p style={{ color: "var(--muted)", marginTop: "0.7rem" }}>From first call to live site in weeks — not months.</p>
+    <section id="process" style={{ padding: isMobile ? "4rem 1.5rem" : "7rem 3rem", maxWidth: 1200, margin: "0 auto" }}>
+      <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: isMobile ? "2.5rem" : "4rem" }}>
+        <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem,3.5vw,2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>Simple process, stunning results</h2>
+        <p style={{ color: "var(--muted)", marginTop: "0.7rem", fontSize: isMobile ? "0.9rem" : "1rem" }}>From first call to live site in weeks — not months.</p>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "1.5rem", position: "relative" }}>
-        <div style={{ position: "absolute", top: "2.4rem", left: "12%", right: "12%", height: 1, background: "linear-gradient(to right,transparent,var(--accent),transparent)" }} />
+      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4,1fr)", gap: isMobile ? "1.2rem" : "1.5rem", position: "relative" }}>
+        <div style={{ display: isMobile ? "none" : "block", position: "absolute", top: "2.4rem", left: "12%", right: "12%", height: 1, background: "linear-gradient(to right,transparent,var(--accent),transparent)" }} />
         {steps.map((s, i) => <StepCard key={s.num} s={s} delay={i * 80} />)}
       </div>
     </section>

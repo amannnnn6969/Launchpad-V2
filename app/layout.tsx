@@ -4,9 +4,9 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Cursor from "@/components/Cursor";
 
 export const metadata: Metadata = {
-  title: "launchpad — Web Agency for Local Businesses",
+  title: "Launchpad — Custom Web Experiences",
   description:
-    "We build jaw-dropping, high-converting websites for local businesses that deserve a world-class online presence.",
+    "Custom-coded in Next.js. Cinematic in motion. Built for brands that refuse to blend in.",
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body>
         <ThemeProvider>
           <Cursor />

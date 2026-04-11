@@ -2,11 +2,13 @@
 import { useInView } from "react-intersection-observer";
 import { useState, useEffect } from "react";
 
-const stats = [
-  { num: "94%", desc: "of first impressions are design-related" },
-  { num: "3s", desc: "before a visitor leaves a slow site" },
-  { num: "2×", desc: "more leads with a modern site" },
-  { num: "75%", desc: "judge credibility by web design" },
+const verticals = [
+  "Personal Brands",
+  "Creative Agencies",
+  "F&B Concepts",
+  "Fitness & Wellness",
+  "Real Estate",
+  "Professional Services",
 ];
 
 export default function WhoWeHelp() {
@@ -28,31 +30,30 @@ export default function WhoWeHelp() {
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? "2rem" : "3.5rem", alignItems: "center", marginTop: "2rem" }}>
         <RevealBlock delay={0}>
           <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem, 3.5vw, 3rem)", fontWeight: 800, lineHeight: 1.12, letterSpacing: "-0.03em", marginBottom: "1.2rem", color: "var(--text)" }}>
-            Built for businesses killing it offline — but invisible online.
+            Built for brands with something to say.
           </h2>
-          <p style={{ color: "var(--text2)", lineHeight: 1.8, fontSize: "0.96rem", marginBottom: "1rem" }}>
-            You&apos;ve built something real. Your customers love you. Your reviews are great. But your website looks like it&apos;s from 2009, and you&apos;re losing customers to competitors who have half your quality but twice your web presence.
-          </p>
           <p style={{ color: "var(--text2)", lineHeight: 1.8, fontSize: "0.96rem" }}>
-            We fix that. Fast. With websites that actually convert visitors into paying customers.
+            We work with founders, studios, and growing brands who know that a generic website is worse than no website. The kind of people who&apos;d rather have one exceptional thing than five mediocre ones.
           </p>
         </RevealBlock>
         <RevealBlock delay={100}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-            {stats.map((s) => (
-              <div key={s.num} style={{
-                background: "var(--bg2)", border: "1px solid var(--border)",
-                borderRadius: "1rem", padding: "1.2rem",
-                transition: "border-color 0.3s, transform 0.3s, box-shadow 0.3s",
+          <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.2rem", padding: 0, margin: 0 }}>
+            {verticals.map((v) => (
+              <li key={v} style={{
+                fontFamily: "Syne, sans-serif",
+                fontSize: isMobile ? "1.2rem" : "1.6rem",
+                fontWeight: 700,
+                letterSpacing: "-0.02em",
+                color: "var(--text)",
+                padding: "0.85rem 0",
+                borderBottom: "1px solid var(--border)",
+                transition: "color 0.3s, padding-left 0.3s",
               }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--accent)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px var(--accent-glow)"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "none"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
-              >
-                <div style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "2.4rem", fontWeight: 800, color: "var(--accent)" }}>{s.num}</div>
-                <div style={{ fontSize: "0.78rem", color: "var(--muted)", marginTop: "0.3rem", lineHeight: 1.4 }}>{s.desc}</div>
-              </div>
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--accent)"; (e.currentTarget as HTMLElement).style.paddingLeft = "0.6rem"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--text)"; (e.currentTarget as HTMLElement).style.paddingLeft = "0"; }}
+              >{v}</li>
             ))}
-          </div>
+          </ul>
         </RevealBlock>
       </div>
     </section>

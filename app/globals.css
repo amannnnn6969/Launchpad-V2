@@ -11,11 +11,11 @@
   --text: #0a1628;
   --text2: #3a5275;
   --muted: #7a96b8;
-  --accent: #1a5cff;
+  --accent: #2563ff;
   --accent2: #3d8bff;
-  --accent-glow: rgba(26, 92, 255, 0.18);
-  --border: rgba(26, 92, 255, 0.12);
-  --border2: rgba(26, 92, 255, 0.22);
+  --accent-glow: rgba(37, 99, 255, 0.18);
+  --border: rgba(37, 99, 255, 0.12);
+  --border2: rgba(37, 99, 255, 0.22);
   --nav-bg: rgba(238, 243, 251, 0.85);
   --marquee-bg: #dce8f7;
 }
@@ -28,25 +28,33 @@
   --text: #e8f0ff;
   --text2: #a0bcdf;
   --muted: #4a6a94;
-  --accent: #3d8bff;
+  --accent: #4f8eff;
   --accent2: #6aaeff;
-  --accent-glow: rgba(61, 139, 255, 0.25);
-  --border: rgba(61, 139, 255, 0.14);
-  --border2: rgba(61, 139, 255, 0.28);
+  --accent-glow: rgba(79, 142, 255, 0.25);
+  --border: rgba(79, 142, 255, 0.14);
+  --border2: rgba(79, 142, 255, 0.28);
   --nav-bg: rgba(5, 13, 26, 0.88);
   --marquee-bg: #091222;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+  max-width: 100vw;
   transition: background 0.5s, color 0.5s;
   cursor: none;
 }
+
+#hero { max-width: 100vw; overflow-x: hidden; }
 
 /* Custom cursor */
 #cursor {

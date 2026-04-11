@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const links = ["About", "Services", "Work", "Process", "Contact"];
+const links = ["Studio", "Services", "Work", "Process", "Contact"];
 const ids = ["who", "services", "portfolio", "process", "contact"];
 
 export default function Navbar() {
@@ -10,8 +10,9 @@ export default function Navbar() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 80);
     const onResize = () => setIsMobile(window.innerWidth < 768);
+    onScroll();
     onResize();
     window.addEventListener("scroll", onScroll);
     window.addEventListener("resize", onResize);
@@ -32,10 +33,13 @@ export default function Navbar() {
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         display: "flex", justifyContent: "space-between", alignItems: "center",
         padding: isMobile ? "1rem 1.5rem" : "1.3rem 3rem",
-        backdropFilter: "blur(16px)", background: "var(--nav-bg)",
-        borderBottom: "1px solid var(--border)",
-        transition: "background 0.5s, border-color 0.5s, box-shadow 0.3s",
+        backdropFilter: scrolled ? "blur(16px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+        background: scrolled ? "var(--nav-bg)" : "transparent",
+        borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
         boxShadow: scrolled ? "0 2px 20px var(--accent-glow)" : "none",
+        opacity: scrolled ? 1 : 0.85,
+        transition: "background 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease, opacity 0.3s ease",
       }}>
         <div style={{ fontFamily: "Syne, sans-serif", fontWeight: 800, fontSize: "1.3rem", letterSpacing: "-0.03em", color: "var(--text)" }}>
           Launch<span style={{ color: "var(--accent)" }}>pad</span>
@@ -59,7 +63,7 @@ export default function Navbar() {
             <button onClick={() => scrollTo("contact")} style={{ background: "var(--accent)", color: "#fff", border: "none", padding: "0.55rem 1.4rem", borderRadius: "2rem", fontSize: "0.82rem", fontWeight: 500, cursor: "pointer", fontFamily: "Inter, sans-serif", letterSpacing: "0.04em", transition: "transform 0.2s, box-shadow 0.2s" }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1.05)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px var(--accent-glow)"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
-            >Get a free audit →</button>
+            >Work with us →</button>
           )}
 
           {isMobile && (
@@ -105,7 +109,7 @@ export default function Navbar() {
             padding: "0.9rem 2.4rem", borderRadius: "2rem",
             fontSize: "1rem", fontWeight: 600,
             cursor: "pointer", fontFamily: "Inter, sans-serif", marginTop: "1rem",
-          }}>Get a free audit →</button>
+          }}>Work with us →</button>
         </div>
       )}
     </>

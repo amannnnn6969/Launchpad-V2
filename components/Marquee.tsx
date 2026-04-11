@@ -1,6 +1,6 @@
 const items = [
-  "Restaurants", "Boutique Stores", "Law Firms", "Gyms & Studios",
-  "Real Estate", "Healthcare", "Salons & Spas", "Contractors",
+  "Next.js 14", "·", "TypeScript", "·", "Framer Motion", "·", "Three.js", "·",
+  "Tailwind CSS", "·", "Cinematic Design", "·", "Custom Coded", "·", "No Templates", "·",
 ];
 
 export default function Marquee() {
@@ -16,7 +16,7 @@ export default function Marquee() {
         transition: "background 0.5s",
       }}
     >
-      <div className="animate-marquee" style={{ display: "flex", gap: "3rem", whiteSpace: "nowrap" }}>
+      <div className="animate-marquee" style={{ display: "flex", gap: "2.2rem", whiteSpace: "nowrap" }}>
         {doubled.map((item, i) => (
           <span
             key={i}
@@ -25,13 +25,11 @@ export default function Marquee() {
               fontSize: "0.73rem",
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "var(--muted)",
+              color: item === "·" ? "var(--accent)" : "var(--muted)",
               display: "flex",
               alignItems: "center",
-              gap: "1rem",
             }}
           >
-            <span style={{ width: 5, height: 5, background: "var(--accent)", borderRadius: "50%", display: "inline-block", flexShrink: 0 }} />
             {item}
           </span>
         ))}
