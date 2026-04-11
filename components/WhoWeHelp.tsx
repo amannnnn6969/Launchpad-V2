@@ -29,8 +29,30 @@ export default function WhoWeHelp() {
       </p>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? "2rem" : "3.5rem", alignItems: "center", marginTop: "2rem" }}>
         <RevealBlock delay={0}>
-          <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem, 3.5vw, 3rem)", fontWeight: 800, lineHeight: 1.12, letterSpacing: "-0.03em", marginBottom: "1.2rem", color: "var(--text)" }}>
-            Built for brands with something to say.
+          <h2
+            style={{
+              fontFamily: "Syne, sans-serif",
+              fontSize: isMobile ? "1.8rem" : "clamp(1.9rem, 3.5vw, 3rem)",
+              fontWeight: 800,
+              lineHeight: 1.12,
+              letterSpacing: "-0.03em",
+              marginBottom: "1.2rem",
+              color: "var(--text)",
+              overflow: "hidden",
+            }}
+          >
+            {["Built for", "brands with", "something", "to say."].map((word, i) => (
+              <span
+                key={i}
+                className={`reveal-word ${inView ? "reveal-word-visible" : ""}`}
+                style={{
+                  display: "block",
+                  transitionDelay: `${i * 120}ms`,
+                }}
+              >
+                {word}
+              </span>
+            ))}
           </h2>
           <p style={{ color: "var(--text2)", lineHeight: 1.8, fontSize: "0.96rem" }}>
             We work with founders, studios, and growing brands who know that a generic website is worse than no website. The kind of people who&apos;d rather have one exceptional thing than five mediocre ones.

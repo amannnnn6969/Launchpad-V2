@@ -8,6 +8,7 @@ import Process from "@/components/Process";
 import Contact from "@/components/Contact";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <Contact />
       <CtaBanner />
       <Footer />
+      <ScrollToTop />
     </main>
   );
 }

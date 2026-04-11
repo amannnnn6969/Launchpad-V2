@@ -16,7 +16,7 @@ const comingSoon = [
   { title: "Next Project", status: "In Progress — 2025" },
 ];
 
-function FeaturedCard({ isMobile }: { isMobile: boolean }) {
+function FeaturedCard({ isMobile, onHover }: { isMobile: boolean; onHover: (id: string | null) => void }) {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
   return (
     <a
@@ -40,6 +40,7 @@ function FeaturedCard({ isMobile }: { isMobile: boolean }) {
           (e.currentTarget as HTMLElement).style.transform = "translateY(-8px)";
           (e.currentTarget as HTMLElement).style.boxShadow = "0 24px 80px var(--accent-glow)";
           (e.currentTarget as HTMLElement).style.borderColor = "var(--accent)";
+          onHover("meteoric");
         }
       }}
       onMouseLeave={(e) => {
@@ -47,6 +48,7 @@ function FeaturedCard({ isMobile }: { isMobile: boolean }) {
           (e.currentTarget as HTMLElement).style.transform = "none";
           (e.currentTarget as HTMLElement).style.boxShadow = "none";
           (e.currentTarget as HTMLElement).style.borderColor = "var(--border2)";
+          onHover(null);
         }
       }}
     >
@@ -222,6 +224,7 @@ function ComingSoonCard({ c, delay, isMobile }: { c: typeof comingSoon[0]; delay
 export default function Portfolio() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
   const [isMobile, setIsMobile] = useState(false);
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
@@ -230,25 +233,42 @@ export default function Portfolio() {
   }, []);
 
   return (
-    <div id="portfolio" style={{
-      background: "var(--surface)", border: "1px solid var(--border)",
-      borderRadius: isMobile ? "1.2rem" : "2rem",
-      padding: isMobile ? "3rem 1.5rem" : "5rem 3rem",
-      maxWidth: 1200, margin: isMobile ? "0 1rem 2rem" : "0 auto 4rem",
-      transition: "background 0.5s, border-color 0.5s",
-    }}>
-      <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "3rem" }}>
-        <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem, 3.5vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>Selected Work</h2>
-        <p style={{ color: "var(--muted)", marginTop: "0.7rem" }}>A growing portfolio of digital experiences. Each one built from scratch.</p>
-      </div>
+    <>
+      <div
+        aria-hidden
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 0,
+          pointerEvents: "none",
+          opacity: hoveredProject === "meteoric" ? 1 : 0,
+          transition: "opacity 0.6s ease",
+          background:
+            "radial-gradient(ellipse at center, rgba(139,0,0,0.18) 0%, rgba(13,3,5,0.6) 60%, transparent 100%)",
+        }}
+      />
+      <div id="portfolio" style={{
+        background: "var(--surface)", border: "1px solid var(--border)",
+        borderRadius: isMobile ? "1.2rem" : "2rem",
+        padding: isMobile ? "3rem 1.5rem" : "5rem 3rem",
+        maxWidth: 1200, margin: isMobile ? "0 1rem 2rem" : "0 auto 4rem",
+        transition: "background 0.5s, border-color 0.5s",
+        position: "relative",
+        zIndex: 1,
+      }}>
+        <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem, 3.5vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>Selected Work</h2>
+          <p style={{ color: "var(--muted)", marginTop: "0.7rem" }}>A growing portfolio of digital experiences. Each one built from scratch.</p>
+        </div>
 
-      <FeaturedCard isMobile={isMobile} />
+        <FeaturedCard isMobile={isMobile} onHover={setHoveredProject} />
 
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: isMobile ? "1.5rem" : "1.4rem" }}>
-        {comingSoon.map((c, i) => (
-          <ComingSoonCard key={i} c={c} delay={i * 60} isMobile={isMobile} />
-        ))}
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: isMobile ? "1.5rem" : "1.4rem" }}>
+          {comingSoon.map((c, i) => (
+            <ComingSoonCard key={i} c={c} delay={i * 60} isMobile={isMobile} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

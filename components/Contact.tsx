@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 const industries = [
-  "Restaurant / Food & Beverage",
-  "Retail / Boutique Store",
-  "Law Firm / Legal Services",
-  "Healthcare / Clinic",
-  "Gym / Fitness Studio",
+  "Personal Brand",
+  "Creative Agency",
+  "F&B / Hospitality",
+  "Fitness & Wellness",
   "Real Estate",
-  "Salon / Spa / Beauty",
-  "Construction / Contractors",
+  "Professional Services",
+  "E-commerce",
   "Other",
 ];
 
@@ -24,7 +23,6 @@ export default function Contact() {
     name: "",
     business: "",
     email: "",
-    phone: "",
     industry: "",
     message: "",
   });
@@ -113,7 +111,7 @@ export default function Contact() {
           Let&apos;s talk
         </h2>
         <p style={{ color: "var(--muted)", marginTop: "0.7rem" }}>
-          Tell us about your business — we&apos;ll show you exactly how we&apos;d grow it online.
+          No pitch, no pressure. Tell us about your project and we&apos;ll tell you honestly if we&apos;re the right fit.
         </p>
       </div>
 
@@ -136,7 +134,7 @@ export default function Contact() {
               marginBottom: "1rem",
             }}
           >
-            Get your free audit
+            Start a conversation
           </h3>
           <p
             style={{
@@ -146,42 +144,33 @@ export default function Contact() {
               marginBottom: "1.5rem",
             }}
           >
-            No pitch, no pressure. We&apos;ll look at your current online
-            presence and give you an honest breakdown of what&apos;s working
-            and what isn&apos;t.
+            No pitch, no pressure. Tell us about your project and we&apos;ll tell you honestly if we&apos;re the right fit.
           </p>
           {[
-            ["📧", "hello@launchpad.agency"],
-            ["📞", "+91 98765 43210"],
-            ["📍", "Mumbai, India — serving clients nationwide"],
-          ].map(([icon, text]) => (
+            "launchpadwebagency@gmail.com",
+            "Mumbai, India — working with clients globally",
+          ].map((text) => (
             <div
               key={text}
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "0.8rem",
+                gap: "0.9rem",
                 marginBottom: "1rem",
                 color: "var(--text2)",
                 fontSize: "0.88rem",
               }}
             >
-              <div
+              <span
                 style={{
-                  width: 34,
-                  height: 34,
-                  background: "var(--accent-glow)",
-                  border: "1px solid var(--border2)",
-                  borderRadius: "0.6rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "0.95rem",
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: "var(--accent)",
+                  boxShadow: "0 0 10px var(--accent-glow)",
                   flexShrink: 0,
                 }}
-              >
-                {icon}
-              </div>
+              />
               {text}
             </div>
           ))}
@@ -206,7 +195,7 @@ export default function Contact() {
                 fontSize: "1.1rem",
               }}
             >
-              🎉 Message sent! We&apos;ll be in touch within 24 hours.
+              Message sent. We&apos;ll be in touch within 24 hours.
             </div>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -224,7 +213,7 @@ export default function Contact() {
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    placeholder="Rahul Sharma"
+                    placeholder="Your name"
                   />
                 </div>
                 <div>
@@ -234,40 +223,21 @@ export default function Contact() {
                     name="business"
                     value={form.business}
                     onChange={handleChange}
-                    placeholder="Sharma & Co."
+                    placeholder="Your business"
                   />
                 </div>
               </div>
 
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-                  gap: "1rem",
-                }}
-              >
-                <div>
-                  <label style={labelStyle}>Email</label>
-                  <input
-                    type="email"
-                    style={inputStyle}
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="rahul@business.com"
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Phone</label>
-                  <input
-                    type="tel"
-                    style={inputStyle}
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="+91 98765 43210"
-                  />
-                </div>
+              <div>
+                <label style={labelStyle}>Email</label>
+                <input
+                  type="email"
+                  style={inputStyle}
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="you@business.com"
+                />
               </div>
 
               <div>

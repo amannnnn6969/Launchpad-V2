@@ -1,15 +1,67 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
- import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { useTheme } from "./ThemeProvider";
 
-const PHRASES = [
-  "demand attention.",
-  "convert visitors.",
-  "outlast trends.",
-  "reflect your craft.",
-];
+
+const CHARS = "abcdefghijklmnopqrstuvwxyz";
+
+function useScramble(target: string, trigger: boolean) {
+  const [display, setDisplay] = React.useState(target);
+  const frameRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    if (!trigger) return;
+    let iteration = 0;
+    const totalFrames = target.length * 2;
+
+    const step = () => {
+      setDisplay(
+        target
+          .split("")
+          .map((char, i) => {
+            if (char === " ") return " ";
+            if (i < iteration / 3) return target[i];
+            return CHARS[Math.floor(Math.random() * CHARS.length)];
+          })
+          .join("")
+      );
+      iteration++;
+      if (iteration <= totalFrames) {
+        frameRef.current = setTimeout(step, 65);
+      } else {
+        setDisplay(target);
+      }
+    };
+
+    step();
+    return () => { if (frameRef.current) clearTimeout(frameRef.current); };
+  }, [target, trigger]);
+
+  return display;
+}
+
+function ScrambleText({ phrases }: { phrases: string[] }) {
+  const [index, setIndex] = React.useState(0);
+  const [trigger, setTrigger] = React.useState(true);
+
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      setIndex(i => (i + 1) % phrases.length);
+      setTrigger(false);
+      setTimeout(() => setTrigger(true), 50);
+    }, 3800);
+    return () => clearInterval(id);
+  }, [phrases]);
+
+  const display = useScramble(phrases[index], trigger);
+
+  return (
+    <span style={{ color: "var(--accent)", display: "inline-block", minWidth: "100%", textAlign: "center" }}>
+      {display}
+    </span>
+  );
+}
 
 function useMagnet(strength = 0.4) {
   const ref = useRef<HTMLButtonElement>(null);
@@ -41,14 +93,6 @@ export default function Hero() {
   const { theme } = useTheme();
   const themeRef = useRef(theme);
   useEffect(() => { themeRef.current = theme; }, [theme]);
-
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => {
-      setPhraseIndex((i) => (i + 1) % PHRASES.length);
-    }, 3000);
-    return () => clearInterval(id);
-  }, []);
 
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -165,11 +209,13 @@ export default function Hero() {
       id="hero"
       style={{
         position: "relative",
-        height: "100vh",
+        minHeight: "100svh",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
+        paddingTop: isMobile ? "70px" : "88px",
         paddingLeft: isMobile ? "1.5rem" : "2rem",
         paddingRight: isMobile ? "1.5rem" : "2rem",
       }}
@@ -198,8 +244,9 @@ export default function Hero() {
           width: "100%",
           maxWidth: isMobile ? "100%" : 680,
           margin: "0 auto",
-          paddingTop: "140px",
-          paddingBottom: "80px",
+          marginTop: isMobile ? "auto" : "2.5rem",
+          marginBottom: isMobile ? "auto" : "auto",
+          paddingBottom: isMobile ? "5rem" : "7rem",
         }}
       >
         <h1
@@ -207,13 +254,14 @@ export default function Hero() {
           style={{
             fontFamily: "Syne, sans-serif",
             fontWeight: 800,
-            fontSize: isMobile ? "clamp(2rem, 8vw, 3rem)" : "clamp(2.6rem, 5.8vw, 5.2rem)",
-            lineHeight: 1.0,
+            fontSize: isMobile ? "clamp(1.2rem, 5vw, 1.6rem)" : "clamp(2rem, 4.2vw, 4.2rem)",
+            lineHeight: isMobile ? 1.08 : 1.0,
             letterSpacing: "-0.04em",
-            marginBottom: isMobile ? "1.2rem" : "1.8rem",
+            marginBottom: isMobile ? "0.9rem" : "1.8rem",
             color: "var(--text)",
-            wordBreak: "normal",
+            wordBreak: "break-word",
             overflowWrap: "normal",
+            textAlign: "center",
           }}
         >
           We build
@@ -222,43 +270,17 @@ export default function Hero() {
           <br />
           that
           <br />
-          <span
-            style={{
-              position: "relative",
-              display: "inline-block",
-              overflow: "hidden",
-              verticalAlign: "bottom",
-              lineHeight: 1.15,
-              paddingBottom: "0.1em",
-              maxWidth: "100%",
-            }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={PHRASES[phraseIndex]}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                style={{
-                  display: "inline-block",
-                  color: "var(--accent)",
-                }}
-              >
-                {PHRASES[phraseIndex]}
-              </motion.span>
-            </AnimatePresence>
-          </span>
+          <ScrambleText phrases={["demand attention.", "convert visitors.", "outlast trends.", "reflect your craft."]} />
         </h1>
 
         <p
           className="animate-fade-up-3"
           style={{
-            fontSize: isMobile ? "0.9rem" : "1.03rem",
+            fontSize: isMobile ? "0.82rem" : "1.03rem",
             color: "var(--text2)",
             lineHeight: 1.75,
             maxWidth: 460,
-            margin: isMobile ? "0 0 1.8rem" : "0 0 2.5rem",
+            margin: isMobile ? "0 auto 1.4rem" : "0 auto 2.5rem",
           }}
         >
           Custom-coded in Next.js. Cinematic in motion. Built for brands that refuse to blend in.
@@ -268,7 +290,7 @@ export default function Hero() {
           className="animate-fade-up-4"
           style={{
             display: "flex",
-            gap: "1rem",
+            gap: isMobile ? "0.6rem" : "1rem",
             justifyContent: "center",
             alignItems: isMobile ? "stretch" : "center",
             flexDirection: isMobile ? "column" : "row",
@@ -285,9 +307,9 @@ export default function Hero() {
               background: "var(--accent)",
               color: "#fff",
               border: "none",
-              padding: "0.85rem 2.2rem",
+              padding: isMobile ? "0.75rem 1.8rem" : "0.85rem 2.2rem",
               borderRadius: "2rem",
-              fontSize: "0.95rem",
+              fontSize: isMobile ? "0.85rem" : "0.95rem",
               fontWeight: 500,
               cursor: "pointer",
               fontFamily: "Inter, sans-serif",
@@ -307,9 +329,9 @@ export default function Hero() {
               background: "transparent",
               color: "var(--text)",
               border: "1.5px solid var(--border2)",
-              padding: "0.85rem 2.2rem",
+              padding: isMobile ? "0.75rem 1.8rem" : "0.85rem 2.2rem",
               borderRadius: "2rem",
-              fontSize: "0.95rem",
+              fontSize: isMobile ? "0.85rem" : "0.95rem",
               cursor: "pointer",
               fontFamily: "Inter, sans-serif",
               width: isMobile ? "100%" : "auto",
@@ -327,10 +349,10 @@ export default function Hero() {
         className="animate-fade-up-5"
         style={{
           position: "absolute",
-          bottom: "3.5rem",
+          bottom: "5.5rem",
           left: "50%",
           transform: "translateX(-50%)",
-          zIndex: 3,
+          zIndex: 4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -375,17 +397,7 @@ export default function Hero() {
       >
         {!isMobile && <span>Mumbai, India</span>}
         <span style={{ display: "flex", alignItems: "center", gap: "0.55rem", margin: isMobile ? "0 auto" : 0 }}>
-          <span
-            className="hero-status-dot"
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              background: "#22c55e",
-              boxShadow: "0 0 6px #22c55e",
-              display: "inline-block",
-            }}
-          />
+          <span className="hero-status-dot" />
           Currently taking projects
         </span>
         {!isMobile && <span>© 2025 Launchpad</span>}

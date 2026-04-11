@@ -109,6 +109,38 @@ body {
 }
 .animate-scroll-pulse { animation: scrollPulse 2s infinite; }
 
+/* CTA banner pulse */
+@keyframes ctaPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* Hero status dot */
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px #22c55e; }
+  50% { opacity: 0.5; box-shadow: 0 0 12px #22c55e, 0 0 20px #22c55e; }
+}
+.hero-status-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #22c55e;
+  display: inline-block;
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+/* Word reveal */
+.reveal-word {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.reveal-word-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Fade up */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
