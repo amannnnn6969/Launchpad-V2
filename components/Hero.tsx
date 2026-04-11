@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+ import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 
 const PHRASES = [
@@ -13,7 +13,7 @@ const PHRASES = [
 
 function useMagnet(strength = 0.4) {
   const ref = useRef<HTMLButtonElement>(null);
-  const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleMouseMove = (e: ReactMouseEvent<HTMLButtonElement>) => {
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -113,7 +113,7 @@ export default function Hero() {
       scene.add(light, new THREE.AmbientLight(0xffffff, 0.15));
 
       let mouseX = 0, mouseY = 0;
-      const onMove = (e: MouseEvent) => {
+      const onMove = (e: globalThis.MouseEvent) => {
         mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
         mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
       };
