@@ -292,7 +292,7 @@ export default function Hero() {
             display: "flex",
             gap: isMobile ? "0.6rem" : "1rem",
             justifyContent: "center",
-            alignItems: isMobile ? "stretch" : "center",
+            alignItems: "center",
             flexDirection: isMobile ? "column" : "row",
             flexWrap: "wrap",
             width: isMobile ? "100%" : "auto",
@@ -314,7 +314,8 @@ export default function Hero() {
               cursor: "pointer",
               fontFamily: "Inter, sans-serif",
               width: isMobile ? "100%" : "auto",
-              maxWidth: isMobile ? "280px" : "none",
+              maxWidth: isMobile ? "320px" : "none",
+              margin: isMobile ? "0 auto" : undefined,
               willChange: "transform",
             }}
           >
@@ -335,43 +336,14 @@ export default function Hero() {
               cursor: "pointer",
               fontFamily: "Inter, sans-serif",
               width: isMobile ? "100%" : "auto",
-              maxWidth: isMobile ? "280px" : "none",
+              maxWidth: isMobile ? "320px" : "none",
+              margin: isMobile ? "0 auto" : undefined,
               willChange: "transform",
             }}
           >
             Start a project
           </button>
         </div>
-      </div>
-
-      {/* Scroll hint */}
-      <div
-        className="animate-fade-up-5"
-        style={{
-          position: "absolute",
-          bottom: "5.5rem",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 4,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "0.5rem",
-          color: "var(--muted)",
-          fontSize: "0.68rem",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-        }}
-      >
-        <div
-          className="animate-scroll-pulse"
-          style={{
-            width: 1,
-            height: 44,
-            background: "linear-gradient(to bottom, var(--accent), transparent)",
-          }}
-        />
-        scroll
       </div>
 
       {/* Bottom info strip */}
