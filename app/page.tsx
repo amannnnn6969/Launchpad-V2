@@ -9,6 +9,7 @@ import Contact from "@/components/Contact";
 import CtaBanner from "@/components/CtaBanner";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import Statement from "@/components/Statement";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Marquee />
+      <Statement />
       <WhoWeHelp />
       <Services />
       <Portfolio />
