@@ -1,6 +1,7 @@
 "use client";
 import { useInView } from "react-intersection-observer";
 import { useState, useEffect } from "react";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 const services = [
   { num: "01", title: "Custom Web Development", desc: "Hand-coded in Next.js 14. No templates, no shortcuts. Every interaction is intentional, every pixel earns its place." },
@@ -15,18 +16,11 @@ function ServiceCard({ s, delay, isMobile }: { s: typeof services[0]; delay: num
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
   return (
     <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ transitionDelay: `${delay}ms` }}>
-      <div style={{
-        background: "var(--surface2)", border: "1px solid var(--border)",
-        borderRadius: "1.2rem", padding: isMobile ? "1.5rem" : "2rem",
-        height: "100%", transition: "border-color 0.3s, transform 0.3s, box-shadow 0.3s",
-      }}
-        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--accent2)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-6px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 40px var(--accent-glow)"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.transform = "none"; (e.currentTarget as HTMLElement).style.boxShadow = "none"; }}
-      >
+      <GlowCard glowColor="blue" style={{ padding: isMobile ? "1.5rem" : "2rem", height: "100%" }}>
         <span style={{ fontFamily: "Syne, sans-serif", fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.12em", color: "var(--accent)", marginBottom: "1rem", display: "block" }}>{s.num}</span>
         <div style={{ fontFamily: "Syne, sans-serif", fontSize: "1.08rem", fontWeight: 700, marginBottom: "0.6rem", color: "var(--text)" }}>{s.title}</div>
         <div style={{ color: "var(--text2)", fontSize: "0.87rem", lineHeight: 1.7 }}>{s.desc}</div>
-      </div>
+      </GlowCard>
     </div>
   );
 }

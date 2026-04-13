@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, animate, useMotionValue, useMotionTemplate, useTransform, useSpring } from "framer-motion";
 import { useTheme } from "./ThemeProvider";
 
 
@@ -63,30 +64,6 @@ function ScrambleText({ phrases }: { phrases: string[] }) {
   );
 }
 
-function useMagnet(strength = 0.4) {
-  const ref = useRef<HTMLButtonElement>(null);
-  const handleMouseMove = (e: ReactMouseEvent<HTMLButtonElement>) => {
-    const el = ref.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = e.clientX - cx;
-    const dy = e.clientY - cy;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 80) {
-      el.style.transition = "transform 0.15s cubic-bezier(0.23,1,0.32,1)";
-      el.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
-    }
-  };
-  const handleMouseLeave = () => {
-    const el = ref.current;
-    if (!el) return;
-    el.style.transition = "transform 0.4s cubic-bezier(0.23,1,0.32,1)";
-    el.style.transform = "translate(0,0)";
-  };
-  return { ref, handleMouseMove, handleMouseLeave };
-}
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -102,8 +79,27 @@ export default function Hero() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const viewMagnet = useMagnet(0.4);
-  const startMagnet = useMagnet(0.4);
+  // Magnetic button 1 — smooth spring on both approach and release
+  const vxRaw = useMotionValue(0);
+  const vyRaw = useMotionValue(0);
+  const vx = useSpring(vxRaw, { stiffness: 200, damping: 20, mass: 0.5 });
+  const vy = useSpring(vyRaw, { stiffness: 200, damping: 20, mass: 0.5 });
+  const vpx = useMotionValue(50);
+  const vpy = useMotionValue(50);
+  const vGlowX = useTransform(vpx, (v) => v + "%");
+  const vGlowY = useTransform(vpy, (v) => v + "%");
+  const vGlow = useMotionTemplate`radial-gradient(circle at ${vGlowX} ${vGlowY}, rgba(255,255,255,0.18), transparent 40%)`;
+
+  // Magnetic button 2
+  const sxRaw = useMotionValue(0);
+  const syRaw = useMotionValue(0);
+  const sx = useSpring(sxRaw, { stiffness: 200, damping: 20, mass: 0.5 });
+  const sy = useSpring(syRaw, { stiffness: 200, damping: 20, mass: 0.5 });
+  const spx = useMotionValue(50);
+  const spy = useMotionValue(50);
+  const sGlowX = useTransform(spx, (v) => v + "%");
+  const sGlowY = useTransform(spy, (v) => v + "%");
+  const sGlow = useMotionTemplate`radial-gradient(circle at ${sGlowX} ${sGlowY}, rgba(255,255,255,0.1), transparent 40%)`;
 
   useEffect(() => {
     let THREE: typeof import("three");
@@ -172,7 +168,6 @@ export default function Hero() {
 
       const animate = () => {
         animId = requestAnimationFrame(animate);
-        // Update colors from theme
         const dark = isDark();
         mat.color.setHex(getColor(dark, "main"));
         mat2.color.setHex(getColor(dark, "main"));
@@ -243,9 +238,7 @@ export default function Hero() {
           textAlign: "center",
           width: "100%",
           maxWidth: isMobile ? "100%" : 680,
-          margin: "0 auto",
-          marginTop: isMobile ? "auto" : "2.5rem",
-          marginBottom: isMobile ? "auto" : "auto",
+          margin: "auto",
           paddingBottom: isMobile ? "5rem" : "7rem",
         }}
       >
@@ -298,12 +291,28 @@ export default function Hero() {
             width: isMobile ? "100%" : "auto",
           }}
         >
-          <button
-            ref={viewMagnet.ref}
-            onMouseMove={viewMagnet.handleMouseMove}
-            onMouseLeave={viewMagnet.handleMouseLeave}
+          {/* Button 1 — View selected work */}
+          <motion.button
             onClick={() => scrollTo("portfolio")}
+            onPointerMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const ox = e.clientX - rect.left;
+              const oy = e.clientY - rect.top;
+              vxRaw.set(((ox - rect.width / 2) / rect.width) * 8);
+              vyRaw.set(((oy - rect.height / 2) / rect.height) * 6);
+              vpx.set((ox / rect.width) * 100);
+              vpy.set((oy / rect.height) * 100);
+            }}
+            onPointerLeave={() => {
+              vxRaw.set(0);
+              vyRaw.set(0);
+            }}
+            whileTap={{ scale: 0.97 }}
             style={{
+              x: vx,
+              y: vy,
+              position: "relative",
+              overflow: "hidden",
               background: "var(--accent)",
               color: "#fff",
               border: "none",
@@ -315,18 +324,43 @@ export default function Hero() {
               fontFamily: "Inter, sans-serif",
               width: isMobile ? "100%" : "auto",
               maxWidth: isMobile ? "320px" : "none",
-              margin: isMobile ? "0 auto" : undefined,
               willChange: "transform",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            View selected work →
-          </button>
-          <button
-            ref={startMagnet.ref}
-            onMouseMove={startMagnet.handleMouseMove}
-            onMouseLeave={startMagnet.handleMouseLeave}
+            <motion.span
+              aria-hidden
+              style={{ background: vGlow, position: "absolute", inset: 0, opacity: 0 }}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+            <span style={{ position: "relative", zIndex: 1 }}>View selected work →</span>
+          </motion.button>
+
+          {/* Button 2 — Start a project */}
+          <motion.button
             onClick={() => scrollTo("contact")}
+            onPointerMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const ox = e.clientX - rect.left;
+              const oy = e.clientY - rect.top;
+              sxRaw.set(((ox - rect.width / 2) / rect.width) * 8);
+              syRaw.set(((oy - rect.height / 2) / rect.height) * 6);
+              spx.set((ox / rect.width) * 100);
+              spy.set((oy / rect.height) * 100);
+            }}
+            onPointerLeave={() => {
+              sxRaw.set(0);
+              syRaw.set(0);
+            }}
+            whileTap={{ scale: 0.97 }}
             style={{
+              x: sx,
+              y: sy,
+              position: "relative",
+              overflow: "hidden",
               background: "transparent",
               color: "var(--text)",
               border: "1.5px solid var(--border2)",
@@ -337,12 +371,20 @@ export default function Hero() {
               fontFamily: "Inter, sans-serif",
               width: isMobile ? "100%" : "auto",
               maxWidth: isMobile ? "320px" : "none",
-              margin: isMobile ? "0 auto" : undefined,
               willChange: "transform",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            Start a project
-          </button>
+            <motion.span
+              aria-hidden
+              style={{ background: sGlow, position: "absolute", inset: 0, opacity: 0 }}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+            <span style={{ position: "relative", zIndex: 1 }}>Start a project</span>
+          </motion.button>
         </div>
       </div>
 

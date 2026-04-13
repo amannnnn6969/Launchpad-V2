@@ -3,10 +3,10 @@ import { useInView } from "react-intersection-observer";
 import { useState, useEffect, useRef } from "react";
 
 const steps = [
-  { num: 1, title: "Free Audit", desc: "We review your online presence and show you exactly what's costing you customers." },
-  { num: 2, title: "Strategy Call", desc: "We align on goals, timeline, and budget. No pushy sales — just honest conversation." },
-  { num: 3, title: "We Build", desc: "You'll see a live preview within 2 weeks to review and give feedback." },
-  { num: 4, title: "You Launch", desc: "Go live and start seeing results. We handle domain, hosting, and the full launch checklist." },
+  { num: 1, title: "Discovery", desc: "We learn your brand, audience, and goals. No assumptions — just deep listening before a single pixel gets placed." },
+  { num: 2, title: "Design", desc: "A full visual direction before we write a line of code. You see exactly what we're building and sign off on it." },
+  { num: 3, title: "Build", desc: "Hand-coded in Next.js with motion, performance, and detail at every layer. Live preview within 2 weeks." },
+  { num: 4, title: "Launch", desc: "We handle domain, hosting, and the full launch checklist. Then we stick around — you're not on your own." },
 ];
 
 export default function Process() {
@@ -22,8 +22,8 @@ export default function Process() {
   return (
     <section id="process" style={{ padding: isMobile ? "4rem 1.5rem" : "7rem 3rem", maxWidth: 1200, margin: "0 auto" }}>
       <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ textAlign: "center", marginBottom: isMobile ? "2.5rem" : "4rem" }}>
-        <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem,3.5vw,2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>Simple process, stunning results</h2>
-        <p style={{ color: "var(--muted)", marginTop: "0.7rem", fontSize: isMobile ? "0.9rem" : "1rem" }}>From first call to live site in weeks — not months.</p>
+        <h2 style={{ fontFamily: "Syne, sans-serif", fontSize: isMobile ? "1.8rem" : "clamp(1.9rem,3.5vw,2.8rem)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--text)" }}>How we work</h2>
+        <p style={{ color: "var(--muted)", marginTop: "0.7rem", fontSize: isMobile ? "0.9rem" : "1rem" }}>Four steps. No surprises. No disappearing acts.</p>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4,1fr)", gap: isMobile ? "1.2rem" : "1.5rem", position: "relative" }}>
         <div style={{ display: isMobile ? "none" : "block", position: "absolute", top: "2.4rem", left: "12%", right: "12%", height: 1, background: "linear-gradient(to right,transparent,var(--accent),transparent)" }} />
