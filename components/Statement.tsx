@@ -1,52 +1,59 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { useState, useEffect } from "react";
-import { MagneticText } from "@/components/ui/morphing-cursor";
 
 export default function Statement() {
-  const { ref, inView } = useInView({ threshold: 0.3, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.25, triggerOnce: true });
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    const sync = () => setIsMobile(window.innerWidth < 768);
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
   }, []);
 
   return (
-    <section
-      ref={ref}
-      className={`reveal ${inView ? "visible" : ""}`}
-      style={{
-        padding: isMobile ? "4rem 1.5rem" : "7rem 3rem",
-        maxWidth: 1200,
-        margin: "0 auto",
-        textAlign: "center",
-      }}
-    >
-      <MagneticText
-        text="Most websites apologize for their brand."
-        hoverText="Yours shouldn't."
-        circleSize={isMobile ? 280 : 520}
+    <section className="section-shell">
+      <div
+        ref={ref}
+        className={`glass-panel reveal ${inView ? "visible" : ""}`}
         style={{
-          fontFamily: "Cormorant Garamond, serif",
-          fontStyle: "italic",
-          fontWeight: 300,
-          color: "var(--muted)",
-          fontSize: isMobile ? "clamp(1.4rem, 5vw, 2rem)" : "clamp(1.8rem, 3.5vw, 3.2rem)",
-          lineHeight: 1.2,
-          letterSpacing: "-0.01em",
-        }}
-        innerStyle={{
-          fontFamily: "Syne, sans-serif",
-          fontStyle: "normal",
-          fontWeight: 800,
-          fontSize: isMobile ? "1.4rem" : "2.2rem",
-          letterSpacing: "-0.03em",
+          padding: isMobile ? "28px 22px" : "46px 54px",
           textAlign: "center",
-          lineHeight: 1.1,
         }}
-      />
+      >
+        <p
+          style={{
+            color: "var(--muted)",
+            textTransform: "uppercase",
+            letterSpacing: "0.16em",
+            fontSize: "0.76rem",
+          }}
+        >
+          Positioning statement
+        </p>
+        <h2
+          style={{
+            marginTop: 16,
+            fontFamily: "Outfit, sans-serif",
+            fontWeight: 500,
+            fontSize: isMobile ? "1.8rem" : "clamp(2.2rem, 4vw, 3.4rem)",
+            lineHeight: 1.08,
+            letterSpacing: "-0.04em",
+            color: "var(--text-soft)",
+          }}
+        >
+          Most websites{" "}
+          <span className="gradient-text" style={{ fontWeight: 700 }}>
+            apologize
+          </span>{" "}
+          for the brand behind them.
+          <br />
+          Yours should feel like a signal.
+        </h2>
+      </div>
     </section>
   );
 }

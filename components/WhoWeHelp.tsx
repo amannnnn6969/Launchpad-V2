@@ -1,92 +1,165 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { useState, useEffect } from "react";
 
 const verticals = [
-  "Personal Brands",
-  "Creative Agencies",
-  "F&B Concepts",
-  "Fitness & Wellness",
-  "Real Estate",
-  "Professional Services",
+  "AI products",
+  "SaaS startups",
+  "Creative agencies",
+  "Founder-led brands",
+  "Healthcare innovators",
+  "Service businesses with taste",
+];
+
+const metrics = [
+  { value: "2-4 weeks", label: "for launch-focused builds" },
+  { value: "1 partner", label: "across brand, copy, design, and code" },
 ];
 
 export default function WhoWeHelp() {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
+  const { ref, inView } = useInView({ threshold: 0.12, triggerOnce: true });
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    const sync = () => setIsMobile(window.innerWidth < 768);
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
   }, []);
 
   return (
-    <section id="who" style={{ padding: isMobile ? "4rem 1.5rem" : "7rem 3rem", maxWidth: 1200, margin: "0 auto" }}>
-      <p ref={ref} className={`reveal ${inView ? "visible" : ""}`}
-        style={{ fontSize: "0.73rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--accent)", marginBottom: "1rem" }}>
-        Who we help
-      </p>
-      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: isMobile ? "2rem" : "3.5rem", alignItems: "center", marginTop: "2rem" }}>
-        <RevealBlock delay={0}>
-          <h2
+    <section id="who" className="section-shell">
+      <div
+        ref={ref}
+        className={`glass-panel reveal ${inView ? "visible" : ""}`}
+        style={{
+          padding: isMobile ? "26px 20px" : "42px",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.95fr) minmax(0, 1.05fr)",
+            gap: isMobile ? "26px" : "34px",
+            alignItems: "start",
+          }}
+        >
+          <div>
+            <div className="section-kicker">Who we help</div>
+            <h2 className="section-title section-title--medium" style={{ marginTop: 22 }}>
+              Built for teams with something sharp to say.
+            </h2>
+            <p className="section-copy" style={{ marginTop: 18, maxWidth: 520 }}>
+              We work with founders and growing brands who know a generic site costs more
+              than it saves. If the business is ambitious, the site should carry that
+              energy all the way through desktop and mobile.
+            </p>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "1fr" : "repeat(2, minmax(0, 1fr))",
+                gap: "14px",
+                marginTop: 24,
+              }}
+            >
+              {metrics.map((metric) => (
+                <div
+                  key={metric.value}
+                  className="surface-card"
+                  style={{ padding: "18px 18px 16px", background: "rgba(12,12,16,0.78)" }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "Outfit, sans-serif",
+                      fontSize: "1.35rem",
+                      fontWeight: 600,
+                      letterSpacing: "-0.03em",
+                    }}
+                  >
+                    {metric.value}
+                  </div>
+                  <div
+                    style={{
+                      marginTop: 6,
+                      color: "var(--text-soft)",
+                      fontSize: "0.9rem",
+                      lineHeight: 1.55,
+                    }}
+                  >
+                    {metric.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div
+            className="surface-card"
             style={{
-              fontFamily: "Syne, sans-serif",
-              fontSize: isMobile ? "1.8rem" : "clamp(1.9rem, 3.5vw, 3rem)",
-              fontWeight: 800,
-              lineHeight: 1.12,
-              letterSpacing: "-0.03em",
-              marginBottom: "1.2rem",
-              color: "var(--text)",
-              overflow: "hidden",
+              padding: isMobile ? "22px" : "28px",
+              background: "rgba(12,12,16,0.8)",
             }}
           >
-            {["Built for", "brands with", "something", "to say."].map((word, i) => (
-              <span
-                key={i}
-                className={`reveal-word ${inView ? "reveal-word-visible" : ""}`}
-                style={{
-                  display: "block",
-                  transitionDelay: `${i * 120}ms`,
-                }}
-              >
-                {word}
-              </span>
-            ))}
-          </h2>
-          <p style={{ color: "var(--text2)", lineHeight: 1.8, fontSize: "0.96rem" }}>
-            We work with founders, studios, and growing brands who know that a generic website is worse than no website. The kind of people who&apos;d rather have one exceptional thing than five mediocre ones.
-          </p>
-        </RevealBlock>
-        <RevealBlock delay={100}>
-          <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.2rem", padding: 0, margin: 0 }}>
-            {verticals.map((v) => (
-              <li key={v} style={{
-                fontFamily: "Syne, sans-serif",
-                fontSize: isMobile ? "1.2rem" : "1.6rem",
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                color: "var(--text)",
-                padding: "0.85rem 0",
-                borderBottom: "1px solid var(--border)",
-                transition: "color 0.3s, padding-left 0.3s",
+            <div
+              style={{
+                color: "var(--muted)",
+                fontSize: "0.78rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                marginBottom: 12,
               }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--accent)"; (e.currentTarget as HTMLElement).style.paddingLeft = "0.6rem"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--text)"; (e.currentTarget as HTMLElement).style.paddingLeft = "0"; }}
-              >{v}</li>
-            ))}
-          </ul>
-        </RevealBlock>
+            >
+              Typical clients
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gap: "12px",
+              }}
+            >
+              {verticals.map((vertical) => (
+                <div
+                  key={vertical}
+                  style={{
+                    minHeight: 62,
+                    borderRadius: 18,
+                    border: "1px solid rgba(255,255,255,0.06)",
+                    background: "rgba(255,255,255,0.03)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "0 18px",
+                    gap: "14px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "Outfit, sans-serif",
+                      fontSize: isMobile ? "1rem" : "1.12rem",
+                      fontWeight: 500,
+                      letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {vertical}
+                  </span>
+                  <span
+                    style={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: 999,
+                      background: "var(--hero-gradient)",
+                      boxShadow: "0 0 14px var(--accent-glow)",
+                      flexShrink: 0,
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-  );
-}
-
-function RevealBlock({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-  return (
-    <div ref={ref} className={`reveal ${inView ? "visible" : ""}`} style={{ transitionDelay: `${delay}ms` }}>
-      {children}
-    </div>
   );
 }

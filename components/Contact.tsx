@@ -1,24 +1,24 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 const industries = [
-  "Personal Brand",
-  "Creative Agency",
-  "F&B / Hospitality",
-  "Fitness & Wellness",
-  "Real Estate",
-  "Professional Services",
-  "E-commerce",
+  "AI",
+  "SaaS",
+  "Fintech",
+  "Healthcare",
+  "Creative agency",
+  "DTC",
+  "Professional services",
   "Other",
 ];
 
 export default function Contact() {
+  const { ref, inView } = useInView({ threshold: 0.12, triggerOnce: true });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
-
   const [form, setForm] = useState({
     name: "",
     business: "",
@@ -28,16 +28,16 @@ export default function Contact() {
   });
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    const sync = () => setIsMobile(window.innerWidth < 768);
+    sync();
+    window.addEventListener("resize", sync);
+    return () => window.removeEventListener("resize", sync);
   }, []);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
   };
 
   const handleSubmit = async () => {
@@ -52,255 +52,205 @@ export default function Contact() {
         body: JSON.stringify(form),
       });
       setSubmitted(true);
-    } catch (err) {
-      alert("Something went wrong, please try again!");
+    } catch {
+      alert("Something went wrong, please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const inputStyle: React.CSSProperties = {
-    background: "var(--surface2)",
-    border: "1px solid var(--border)",
-    borderRadius: "0.7rem",
-    padding: "0.8rem 1rem",
-    fontSize: "0.9rem",
-    color: "var(--text)",
-    fontFamily: "Inter, sans-serif",
-    outline: "none",
     width: "100%",
-    transition: "border-color 0.2s, box-shadow 0.2s",
+    borderRadius: 18,
+    border: "1px solid var(--border)",
+    background: "rgba(255,255,255,0.03)",
+    color: "var(--text)",
+    padding: "15px 16px",
+    outline: "none",
   };
 
   const labelStyle: React.CSSProperties = {
-    fontSize: "0.75rem",
-    letterSpacing: "0.06em",
-    textTransform: "uppercase",
-    color: "var(--muted)",
-    marginBottom: "0.4rem",
     display: "block",
+    color: "var(--muted)",
+    fontSize: "0.74rem",
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    marginBottom: 8,
   };
 
   return (
-    <div
-      id="contact"
-      style={{
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-        borderRadius: isMobile ? "1.2rem" : "2rem",
-        padding: isMobile ? "3rem 1.5rem" : "5rem 3rem",
-        maxWidth: 1200,
-        margin: isMobile ? "0 1rem 2rem" : "0 auto 4rem",
-        transition: "background 0.5s",
-      }}
-    >
+    <section id="contact" className="section-shell">
       <div
         ref={ref}
-        className={`reveal ${inView ? "visible" : ""}`}
-        style={{ textAlign: "center", marginBottom: "3rem" }}
+        className={`glass-panel reveal ${inView ? "visible" : ""}`}
+        style={{ padding: isMobile ? "26px 20px" : "42px" }}
       >
-        <h2
+        <div
           style={{
-            fontFamily: "Syne, sans-serif",
-            fontSize: isMobile ? "1.8rem" : "clamp(1.9rem,3.5vw,2.8rem)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            color: "var(--text)",
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)",
+            gap: isMobile ? "24px" : "30px",
           }}
         >
-          Let&apos;s talk
-        </h2>
-        <p style={{ color: "var(--muted)", marginTop: "0.7rem" }}>
-          No pitch, no pressure. Tell us about your project and we&apos;ll tell you honestly if we&apos;re the right fit.
-        </p>
-      </div>
+          <div>
+            <div className="section-kicker">Contact</div>
+            <h2 className="section-title section-title--medium" style={{ marginTop: 22 }}>
+              Bring the brief, the taste, and the deadline.
+            </h2>
+            <p className="section-copy" style={{ marginTop: 18, maxWidth: 460 }}>
+              Tell us what you are launching and what needs to feel different. We will
+              tell you plainly if we are the right fit.
+            </p>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 1.4fr",
-          gap: isMobile ? "2rem" : "4rem",
-          alignItems: "start",
-        }}
-      >
-        {/* Left info */}
-        <div className={`reveal ${inView ? "visible" : ""}`}>
-          <h3
-            style={{
-              fontFamily: "Syne, sans-serif",
-              fontSize: "1.3rem",
-              fontWeight: 800,
-              color: "var(--text)",
-              marginBottom: "1rem",
-            }}
-          >
-            Start a conversation
-          </h3>
-          <p
-            style={{
-              color: "var(--text2)",
-              lineHeight: 1.8,
-              fontSize: "0.92rem",
-              marginBottom: "1.5rem",
-            }}
-          >
-            No pitch, no pressure. Tell us about your project and we&apos;ll tell you honestly if we&apos;re the right fit.
-          </p>
-          {[
-            "launchpadwebagency@gmail.com",
-            "Mumbai, India — working with clients globally",
-          ].map((text) => (
-            <div
-              key={text}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.9rem",
-                marginBottom: "1rem",
-                color: "var(--text2)",
-                fontSize: "0.88rem",
-              }}
-            >
-              <span
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: "var(--accent)",
-                  boxShadow: "0 0 10px var(--accent-glow)",
-                  flexShrink: 0,
-                }}
-              />
-              {text}
-            </div>
-          ))}
-        </div>
-
-        {/* Right form */}
-        <div
-          className={`reveal ${inView ? "visible" : ""}`}
-          style={{ transitionDelay: "100ms" }}
-        >
-          {submitted ? (
             <div
               style={{
-                background: "var(--accent-glow)",
-                border: "1px solid var(--border2)",
-                borderRadius: "1rem",
-                padding: "2rem",
-                textAlign: "center",
-                color: "var(--accent)",
-                fontFamily: "Syne, sans-serif",
-                fontWeight: 700,
-                fontSize: "1.1rem",
+                display: "grid",
+                gap: "14px",
+                marginTop: 26,
               }}
             >
-              Message sent. We&apos;ll be in touch within 24 hours.
+              {[
+                "launchpadwebagency@gmail.com",
+                "Working globally from India",
+                "Launch-focused web and brand systems",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="surface-card"
+                  style={{
+                    minHeight: 62,
+                    padding: "0 18px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    background: "rgba(12,12,16,0.8)",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 9,
+                      height: 9,
+                      borderRadius: 999,
+                      background: "var(--hero-gradient)",
+                      boxShadow: "0 0 14px var(--accent-glow)",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span style={{ color: "var(--text-soft)", fontSize: "0.92rem" }}>{item}</span>
+                </div>
+              ))}
             </div>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          </div>
+
+          <div
+            className="surface-card"
+            style={{
+              padding: isMobile ? "20px" : "24px",
+              background: "rgba(12,12,16,0.92)",
+            }}
+          >
+            {submitted ? (
               <div
                 style={{
+                  minHeight: 280,
                   display: "grid",
-                  gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-                  gap: "1rem",
-                }}
-              >
-                <div>
-                  <label style={labelStyle}>Your name</label>
-                  <input
-                    style={inputStyle}
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Business name</label>
-                  <input
-                    style={inputStyle}
-                    name="business"
-                    value={form.business}
-                    onChange={handleChange}
-                    placeholder="Your business"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label style={labelStyle}>Email</label>
-                <input
-                  type="email"
-                  style={inputStyle}
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="you@business.com"
-                />
-              </div>
-
-              <div>
-                <label style={labelStyle}>Industry</label>
-                <select
-                  style={{ ...inputStyle, cursor: "pointer" }}
-                  name="industry"
-                  value={form.industry}
-                  onChange={handleChange}
-                >
-                  <option value="">Select your industry...</option>
-                  {industries.map((ind) => (
-                    <option key={ind}>{ind}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label style={labelStyle}>Tell us about your business</label>
-                <textarea
-                  style={{ ...inputStyle, minHeight: 110, resize: "vertical" }}
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="What do you do, who are your customers, and what's your biggest online challenge?"
-                />
-              </div>
-
-              <button
-                onClick={handleSubmit}
-                disabled={loading}
-                style={{
-                  background: loading ? "var(--muted)" : "var(--accent)",
-                  color: "#fff",
-                  border: "none",
-                  padding: "0.9rem 2.4rem",
-                  borderRadius: "2rem",
-                  fontSize: "0.95rem",
-                  fontWeight: 600,
-                  cursor: loading ? "not-allowed" : "pointer",
-                  fontFamily: "Inter, sans-serif",
-                  alignSelf: isMobile ? "stretch" : "flex-start",
-                  marginTop: "0.5rem",
-                  transition: "transform 0.2s, box-shadow 0.2s",
+                  placeItems: "center",
                   textAlign: "center",
-                }}
-                onMouseEnter={(e) => {
-                  if (!loading) {
-                    (e.currentTarget as HTMLElement).style.transform = "scale(1.04)";
-                    (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px var(--accent-glow)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
+                  color: "var(--text)",
                 }}
               >
-                {loading ? "Sending..." : "Send message →"}
-              </button>
-            </div>
-          )}
+                <div>
+                  <div className="section-kicker">Message sent</div>
+                  <p className="section-copy" style={{ marginTop: 18 }}>
+                    We will get back to you within 24 hours.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: "grid", gap: "16px" }}>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                    gap: "14px",
+                  }}
+                >
+                  <div>
+                    <label style={labelStyle}>Your name</label>
+                    <input
+                      style={inputStyle}
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Business name</label>
+                    <input
+                      style={inputStyle}
+                      name="business"
+                      value={form.business}
+                      onChange={handleChange}
+                      placeholder="Business name"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={labelStyle}>Email</label>
+                  <input
+                    type="email"
+                    style={inputStyle}
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="you@company.com"
+                  />
+                </div>
+
+                <div>
+                  <label style={labelStyle}>Industry</label>
+                  <select
+                    name="industry"
+                    value={form.industry}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  >
+                    <option value="">Select your industry</option>
+                    {industries.map((industry) => (
+                      <option key={industry}>{industry}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label style={labelStyle}>Project brief</label>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="What are you launching, and what should the site make people feel?"
+                    style={{ ...inputStyle, minHeight: 150, resize: "vertical" }}
+                  />
+                </div>
+
+                <button
+                  className="button-primary"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  style={{
+                    width: isMobile ? "100%" : "fit-content",
+                    opacity: loading ? 0.75 : 1,
+                  }}
+                >
+                  {loading ? "Sending..." : "Send inquiry"}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

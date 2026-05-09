@@ -1,0 +1,76 @@
+
+> launchpad-agency@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.3
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 7.1s (1217 modules)
+ GET / 200 in 7463ms
+ ✓ Compiled in 452ms (609 modules)
+ GET / 200 in 54ms
+ GET / 200 in 50ms
+ GET / 200 in 46ms
+ ✓ Compiled in 1093ms (1217 modules)
+ ✓ Compiled in 469ms (1217 modules)
+ ✓ Compiled in 463ms (502 modules)
+ ✓ Compiled in 504ms (502 modules)
+ ✓ Compiled in 594ms (500 modules)
+ ✓ Compiled in 336ms (500 modules)
+ ✓ Compiled in 237ms (498 modules)
+ ✓ Compiled in 233ms (498 modules)
+ ✓ Compiled in 177ms (498 modules)
+ ✓ Compiled in 200ms (498 modules)
+ ✓ Compiled in 217ms (498 modules)
+ ✓ Compiled in 205ms (498 modules)
+ ✓ Compiled in 212ms (498 modules)
+ GET / 200 in 334ms
+ GET / 200 in 136ms
+ GET / 200 in 47ms
+ GET / 200 in 49ms
+ GET / 200 in 59ms
+ GET / 200 in 74ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1551ms (487 modules)
+ GET /logo.png 404 in 1730ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1698ms (711 modules)
+ GET / 500 in 2099ms
+ GET / 500 in 24ms
+ GET / 500 in 17ms
+ ✓ Compiled in 607ms (720 modules)
+ ✓ Compiled in 333ms (720 modules)
+ ✓ Compiled in 296ms (720 modules)
+ ✓ Compiled in 268ms (720 modules)
+ ✓ Compiled in 467ms (720 modules)
+ ✓ Compiled in 322ms (720 modules)
+ GET / 200 in 63ms
+ GET / 200 in 60ms
+ GET / 200 in 72ms
+ ✓ Compiled in 371ms (706 modules)
+ ✓ Compiled in 256ms (431 modules)
+ ✓ Compiled in 151ms (431 modules)
+ ✓ Compiled in 170ms (431 modules)
+ ✓ Compiled in 1195ms (728 modules)
+ ✓ Compiled in 527ms (728 modules)
+ GET / 200 in 138ms
+ ✓ Compiled in 521ms (728 modules)
+ ✓ Compiled in 364ms (728 modules)
+ GET / 200 in 122ms
+ ✓ Compiled in 777ms (728 modules)
+ ✓ Compiled in 873ms (715 modules)
+ ✓ Compiled in 379ms (715 modules)
+ ✓ Compiled in 287ms (715 modules)
+ ✓ Compiled in 272ms (707 modules)
+ ✓ Compiled in 235ms (707 modules)
+ ✓ Compiled in 224ms (707 modules)
+ ✓ Compiled in 385ms (707 modules)
+ ✓ Compiled in 337ms (707 modules)
+ ✓ Compiled in 262ms (707 modules)
+ GET / 200 in 52ms
+ GET / 200 in 47ms
+ GET / 200 in 37ms
+ GET / 200 in 76ms

@@ -29,8 +29,8 @@ export default function ScrollToTop() {
         background: hovered
           ? "rgba(79,142,255,0.25)"
           : "rgba(5,13,26,0.65)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
