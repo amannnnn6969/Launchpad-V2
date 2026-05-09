@@ -15,81 +15,92 @@ export default function CtaBanner() {
   }, []);
 
   return (
-    <section id="contact" className="section-shell">
-      <div
-        ref={ref}
-        className={`glass-panel reveal ${inView ? "visible" : ""}`}
-        style={{
-          padding: isMobile ? "34px 22px" : "56px 48px",
-          textAlign: "center",
-          overflow: "hidden",
-        }}
-      >
+    <section id="cta" style={{ padding: isMobile ? "0 20px 60px" : "0 40px 100px" }}>
+      <div className="page-shell" ref={ref}>
         <div
+          className={`reveal ${inView ? "visible" : ""}`}
           style={{
-            position: "absolute",
-            width: isMobile ? 180 : 260,
-            height: isMobile ? 180 : 260,
-            borderRadius: 999,
-            top: isMobile ? -24 : -40,
-            left: isMobile ? -34 : 60,
-            background: "rgba(139,92,246,0.2)",
-            filter: "blur(80px)",
+            position: "relative",
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: "24px",
+            padding: isMobile ? "60px 24px" : "100px 40px",
+            textAlign: "center",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
           }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            width: isMobile ? 180 : 260,
-            height: isMobile ? 180 : 260,
-            borderRadius: 999,
-            right: isMobile ? -26 : 80,
-            bottom: isMobile ? -24 : -28,
-            background: "rgba(59,130,246,0.18)",
-            filter: "blur(80px)",
-          }}
-        />
-
-        <div style={{ position: "relative", zIndex: 1, maxWidth: 760, margin: "0 auto" }}>
-          <div className="section-kicker">Next availability / limited slots</div>
-          <h2 className="section-title section-title--medium" style={{ marginTop: 22 }}>
-            Ready to launch with a <span className="gradient-text">future-facing edge</span>?
-          </h2>
-          <p className="section-copy" style={{ marginTop: 18 }}>
-            Bring us the brief and the ambition. We will shape the system that makes
-            the whole launch feel cleaner, sharper, and more premium.
-          </p>
-
+        >
+          {/* Faint background text */}
           <div
             style={{
-              display: "flex",
-              flexDirection: isMobile ? "column" : "row",
-              alignItems: isMobile ? "stretch" : "center",
-              gap: "14px",
-              justifyContent: "center",
-              marginTop: 28,
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              fontSize: isMobile ? "8rem" : "18rem",
+              fontWeight: 900,
+              fontFamily: "'Clash Display', sans-serif",
+              color: "rgba(255,255,255,0.02)",
+              pointerEvents: "none",
+              whiteSpace: "nowrap",
+              zIndex: 0,
+              letterSpacing: "-0.05em"
             }}
           >
+            LAUNCHPAD
+          </div>
+
+          <div style={{ position: "relative", zIndex: 1, maxWidth: 800 }}>
             <div
-              className="surface-card"
               style={{
-                minHeight: 54,
-                minWidth: isMobile ? "100%" : 340,
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
-                padding: "0 18px",
-                background: "rgba(12,12,16,0.72)",
+                gap: "8px",
+                padding: "4px 12px",
+                fontSize: "0.7rem",
+                letterSpacing: "0.15em",
+                fontFamily: "'Clash Display', sans-serif",
+                fontWeight: 600,
+                color: "var(--text-soft)",
+                textTransform: "uppercase",
+                marginBottom: 32
               }}
             >
-              <span style={{ color: "var(--muted)", fontSize: "0.95rem" }}>you@company.com</span>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent)" }} />
+              Next Availability — Limited Spots
             </div>
+
+            <h2
+              className="section-title section-title--medium"
+              style={{
+                fontSize: isMobile ? "2.5rem" : "4rem",
+                marginBottom: 24,
+                lineHeight: 1.1
+              }}
+            >
+              Ready to build something <span style={{ color: "var(--accent)" }}>unforgettable?</span>
+            </h2>
+
+            <p className="section-copy" style={{ marginBottom: 40, fontSize: "1rem" }}>
+              Let's talk about your project. No templates, no filler — just clean, cinematic work.
+            </p>
+
             <button
               className="button-primary"
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              style={{ padding: "16px 36px", fontSize: "1rem", borderRadius: 99 }}
             >
-              Start the conversation
+              Start a conversation →
             </button>
           </div>
+          
+          {/* Corner accents */}
+          <div style={{ position: "absolute", top: 24, left: 24, width: 20, height: 20, borderTop: "2px solid rgba(255,255,255,0.1)", borderLeft: "2px solid rgba(255,255,255,0.1)" }} />
+          <div style={{ position: "absolute", top: 24, right: 24, width: 20, height: 20, borderTop: "2px solid rgba(255,255,255,0.1)", borderRight: "2px solid rgba(255,255,255,0.1)" }} />
+          <div style={{ position: "absolute", bottom: 24, left: 24, width: 20, height: 20, borderBottom: "2px solid rgba(255,255,255,0.1)", borderLeft: "2px solid rgba(255,255,255,0.1)" }} />
+          <div style={{ position: "absolute", bottom: 24, right: 24, width: 20, height: 20, borderBottom: "2px solid rgba(255,255,255,0.1)", borderRight: "2px solid rgba(255,255,255,0.1)" }} />
         </div>
       </div>
     </section>

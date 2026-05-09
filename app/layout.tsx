@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import Cursor from "@/components/Cursor";
+import { MagneticCursor } from "@/components/ui/magnetic-cursor";
 
 export const metadata: Metadata = {
   title: "Launchpad — Custom Web Experiences",
@@ -21,8 +21,9 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <Cursor />
-          {children}
+          <MagneticCursor magneticFactor={0.55} cursorSize={40} blendMode="exclusion">
+            {children}
+          </MagneticCursor>
         </ThemeProvider>
       </body>
     </html>

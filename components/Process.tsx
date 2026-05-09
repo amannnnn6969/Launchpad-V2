@@ -37,76 +37,98 @@ export default function Process() {
     return () => window.removeEventListener("resize", sync);
   }, []);
 
+  const steps = [
+    {
+      num: "1",
+      title: "Discovery",
+      desc: "We learn your brand, audience, and goals. No assumptions — just deep listening before a single pixel gets placed.",
+    },
+    {
+      num: "2",
+      title: "Design",
+      desc: "A full visual direction before we write a line of code. You see exactly what we're building and sign off on it.",
+    },
+    {
+      num: "3",
+      title: "Build",
+      desc: "Hand-coded in Next.js with motion, performance, and detail at every layer. Live preview within 2 weeks.",
+    },
+    {
+      num: "4",
+      title: "Launch",
+      desc: "We handle domain, hosting, and the full launch checklist. Then we stick around — you're not on your own.",
+    },
+  ];
+
   return (
-    <section id="process" className="section-shell">
-      <div
-        ref={ref}
-        className={`glass-panel reveal ${inView ? "visible" : ""}`}
-        style={{ padding: isMobile ? "26px 20px" : "42px" }}
-      >
-        <div style={{ maxWidth: 760 }}>
-          <div className="section-kicker">Process</div>
-          <h2 className="section-title section-title--medium" style={{ marginTop: 22 }}>
-            A simple system with enough rigor to feel expensive.
+    <section id="process" style={{ padding: isMobile ? "60px 0" : "100px 0" }}>
+      <div className="page-shell" ref={ref}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 60 }}>
+          <h2 className="section-title section-title--medium" style={{ fontSize: isMobile ? "2.5rem" : "3.5rem" }}>
+            How we work
           </h2>
-          <p className="section-copy" style={{ marginTop: 18 }}>
-            Four steps, no disappearing acts, and a cleaner handoff from idea to live
-            site.
+          <p className="section-copy" style={{ marginTop: 12, fontSize: "0.95rem" }}>
+            Four steps. No surprises. No disappearing acts.
           </p>
         </div>
 
         <div
+          className={`reveal ${inView ? "visible" : ""}`}
           style={{
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "repeat(4, minmax(0, 1fr))",
-            gap: "16px",
-            marginTop: 28,
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)",
+            gap: "24px",
           }}
         >
           {steps.map((step) => (
             <div
               key={step.num}
-              className="surface-card"
               style={{
-                padding: "22px",
-                background: "rgba(12,12,16,0.9)",
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: "16px",
+                padding: "32px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center"
               }}
             >
               <div
                 style={{
-                  width: 50,
-                  height: 50,
-                  borderRadius: 18,
-                  display: "grid",
-                  placeItems: "center",
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  width: 48,
+                  height: 48,
+                  borderRadius: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "transparent",
+                  border: "1px solid rgba(255,255,255,0.2)",
                   color: "var(--text)",
-                  fontFamily: "Outfit, sans-serif",
-                  fontSize: "1rem",
-                  fontWeight: 700,
-                  letterSpacing: "-0.04em",
+                  fontFamily: "'Clash Display', sans-serif",
+                  fontSize: "1.1rem",
+                  fontWeight: 600,
+                  marginBottom: 20
                 }}
               >
                 {step.num}
               </div>
               <h3
                 style={{
-                  marginTop: 18,
-                  fontFamily: "Outfit, sans-serif",
-                  fontSize: "1.35rem",
-                  fontWeight: 600,
-                  letterSpacing: "-0.03em",
+                  fontFamily: "'Clash Display', sans-serif",
+                  fontSize: "1.25rem",
+                  fontWeight: 700,
+                  marginBottom: 12,
+                  color: "var(--text)"
                 }}
               >
                 {step.title}
               </h3>
               <p
                 style={{
-                  marginTop: 12,
                   color: "var(--text-soft)",
-                  fontSize: "0.92rem",
-                  lineHeight: 1.65,
+                  fontSize: "0.95rem",
+                  lineHeight: 1.6,
                 }}
               >
                 {step.desc}

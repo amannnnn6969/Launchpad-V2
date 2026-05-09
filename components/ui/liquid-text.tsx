@@ -11,7 +11,7 @@ const cooldownTime = 0.5;
 const useMorphingText = (texts: string[]) => {
   const textIndexRef = useRef(0);
   const morphRef = useRef(0);
-  const cooldownRef = useRef(cooldownTime);
+  const cooldownRef = useRef(0);
   const timeRef = useRef(new Date());
 
   const text1Ref = useRef<HTMLSpanElement>(null);
@@ -22,14 +22,12 @@ const useMorphingText = (texts: string[]) => {
       const [current1, current2] = [text1Ref.current, text2Ref.current];
       if (!current1 || !current2 || !texts || texts.length === 0) return;
 
-      const safeFraction = Math.max(fraction, 0.0001);
-      current2.style.filter = `blur(${Math.min(4 / safeFraction - 4, 24)}px)`;
-      current2.style.opacity = `${Math.pow(safeFraction, 0.55) * 100}%`;
+      current2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
+      current2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
 
       const invertedFraction = 1 - fraction;
-      const safeInvertedFraction = Math.max(invertedFraction, 0.0001);
-      current1.style.filter = `blur(${Math.min(4 / safeInvertedFraction - 4, 24)}px)`;
-      current1.style.opacity = `${Math.pow(safeInvertedFraction, 0.55) * 100}%`;
+      current1.style.filter = `blur(${Math.min(8 / invertedFraction - 8, 100)}px)`;
+      current1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`;
 
       current1.textContent = texts[textIndexRef.current % texts.length];
       current2.textContent = texts[(textIndexRef.current + 1) % texts.length];
@@ -101,11 +99,11 @@ const Texts: React.FC<Pick<MorphingTextProps, "texts">> = ({ texts }) => {
   return (
     <>
       <span
-        className="absolute inset-x-0 top-0 m-auto inline-block w-full will-change-[filter,opacity]"
+        className="absolute inset-0 m-auto flex items-center justify-center w-full gradient-text"
         ref={text1Ref}
       />
       <span
-        className="absolute inset-x-0 top-0 m-auto inline-block w-full will-change-[filter,opacity]"
+        className="absolute inset-0 m-auto flex items-center justify-center w-full gradient-text"
         ref={text2Ref}
       />
     </>
@@ -115,15 +113,14 @@ const Texts: React.FC<Pick<MorphingTextProps, "texts">> = ({ texts }) => {
 const SvgFilters: React.FC = () => (
   <svg id="filters" className="hidden" preserveAspectRatio="xMidYMid slice">
     <defs>
-      <filter id="threshold">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="0.15" result="blur" />
+      <filter id="threshold" colorInterpolationFilters="sRGB">
         <feColorMatrix
-          in="blur"
+          in="SourceGraphic"
           type="matrix"
           values="1 0 0 0 0
                   0 1 0 0 0
                   0 0 1 0 0
-                  0 0 0 18 -8"
+                  0 0 0 60 -30"
         />
       </filter>
     </defs>
@@ -133,13 +130,14 @@ const SvgFilters: React.FC = () => (
 const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => (
   <div
     className={cn(
-      "relative mx-auto h-16 w-full max-w-screen-md overflow-hidden text-center font-sans text-[40pt] font-semibold leading-none [filter:url(#threshold)_blur(0.2px)] md:h-24 lg:text-[6rem]",
+      "relative mx-auto w-full text-center font-sans font-bold leading-none [filter:url(#threshold)]",
       className,
     )}
+    style={{ transform: "translateZ(0)", WebkitFontSmoothing: "antialiased" }}
   >
     <Texts texts={texts} />
     <SvgFilters />
   </div>
 );
 
-export { MorphingText };
+export {MorphingText};

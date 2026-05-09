@@ -44,7 +44,7 @@ export default function Footer() {
           <div style={{ maxWidth: 420 }}>
             <div
               style={{
-                fontFamily: "Outfit, sans-serif",
+                fontFamily: "'Clash Display', sans-serif",
                 fontSize: "1.5rem",
                 fontWeight: 700,
                 letterSpacing: "-0.04em",

@@ -61,177 +61,113 @@ export default function Contact() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
-    borderRadius: 18,
-    border: "1px solid var(--border)",
+    borderRadius: 8,
+    border: "1px solid rgba(255,255,255,0.1)",
     background: "rgba(255,255,255,0.03)",
     color: "var(--text)",
-    padding: "15px 16px",
+    padding: "16px",
     outline: "none",
+    fontSize: "0.95rem"
   };
 
   const labelStyle: React.CSSProperties = {
     display: "block",
-    color: "var(--muted)",
-    fontSize: "0.74rem",
-    letterSpacing: "0.12em",
+    color: "var(--text-soft)",
+    fontSize: "0.75rem",
+    letterSpacing: "0.05em",
     textTransform: "uppercase",
     marginBottom: 8,
+    fontFamily: "'Clash Display', sans-serif"
   };
 
   return (
-    <section id="contact" className="section-shell">
-      <div
-        ref={ref}
-        className={`glass-panel reveal ${inView ? "visible" : ""}`}
-        style={{ padding: isMobile ? "26px 20px" : "42px" }}
-      >
+    <section id="contact" style={{ padding: isMobile ? "60px 0" : "100px 0" }}>
+      <div className="page-shell" ref={ref}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 60 }}>
+          <h2 className="section-title section-title--medium" style={{ fontSize: isMobile ? "2.5rem" : "3.5rem" }}>
+            Let's talk
+          </h2>
+          <p className="section-copy" style={{ marginTop: 12, fontSize: "0.95rem" }}>
+            No pitch, no pressure. Tell us about your project and we'll tell you honestly if we're the right fit.
+          </p>
+        </div>
+
         <div
+          className={`reveal ${inView ? "visible" : ""}`}
           style={{
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: "24px",
+            padding: isMobile ? "32px 24px" : "64px",
             display: "grid",
-            gridTemplateColumns: isMobile ? "1fr" : "minmax(0, 0.9fr) minmax(0, 1.1fr)",
-            gap: isMobile ? "24px" : "30px",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1.5fr",
+            gap: isMobile ? "48px" : "80px",
           }}
         >
+          {/* Left Column */}
           <div>
-            <div className="section-kicker">Contact</div>
-            <h2 className="section-title section-title--medium" style={{ marginTop: 22 }}>
-              Bring the brief, the taste, and the deadline.
-            </h2>
-            <p className="section-copy" style={{ marginTop: 18, maxWidth: 460 }}>
-              Tell us what you are launching and what needs to feel different. We will
-              tell you plainly if we are the right fit.
+            <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: "1.5rem", fontWeight: 700, marginBottom: 16 }}>
+              Start a conversation
+            </h3>
+            <p style={{ color: "var(--text-soft)", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: 32 }}>
+              No pitch, no pressure. Tell us about your project and we'll tell you honestly if we're the right fit.
             </p>
 
-            <div
-              style={{
-                display: "grid",
-                gap: "14px",
-                marginTop: 26,
-              }}
-            >
-              {[
-                "launchpadwebagency@gmail.com",
-                "Working globally from India",
-                "Launch-focused web and brand systems",
-              ].map((item) => (
-                <div
-                  key={item}
-                  className="surface-card"
-                  style={{
-                    minHeight: 62,
-                    padding: "0 18px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "12px",
-                    background: "rgba(12,12,16,0.8)",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 9,
-                      height: 9,
-                      borderRadius: 999,
-                      background: "var(--hero-gradient)",
-                      boxShadow: "0 0 14px var(--accent-glow)",
-                      flexShrink: 0,
-                    }}
-                  />
-                  <span style={{ color: "var(--text-soft)", fontSize: "0.92rem" }}>{item}</span>
-                </div>
-              ))}
-            </div>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "16px" }}>
+              <li style={{ display: "flex", alignItems: "center", gap: "12px", color: "var(--text)", fontSize: "0.95rem" }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent)" }} />
+                launchpadwebagency@gmail.com
+              </li>
+              <li style={{ display: "flex", alignItems: "center", gap: "12px", color: "var(--text)", fontSize: "0.95rem" }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--accent)" }} />
+                Mumbai, India — working with clients globally
+              </li>
+            </ul>
           </div>
 
-          <div
-            className="surface-card"
-            style={{
-              padding: isMobile ? "20px" : "24px",
-              background: "rgba(12,12,16,0.92)",
-            }}
-          >
+          {/* Right Column: Form */}
+          <div>
             {submitted ? (
-              <div
-                style={{
-                  minHeight: 280,
-                  display: "grid",
-                  placeItems: "center",
-                  textAlign: "center",
-                  color: "var(--text)",
-                }}
-              >
-                <div>
-                  <div className="section-kicker">Message sent</div>
-                  <p className="section-copy" style={{ marginTop: 18 }}>
-                    We will get back to you within 24 hours.
-                  </p>
-                </div>
+              <div style={{ textAlign: "center", padding: "40px 0" }}>
+                <h3 style={{ fontFamily: "'Clash Display', sans-serif", fontSize: "1.5rem", fontWeight: 700, marginBottom: 16 }}>Message sent</h3>
+                <p style={{ color: "var(--text-soft)", fontSize: "0.95rem" }}>We will get back to you within 24 hours.</p>
               </div>
             ) : (
-              <div style={{ display: "grid", gap: "16px" }}>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-                    gap: "14px",
-                  }}
-                >
+              <div style={{ display: "grid", gap: "24px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "24px" }}>
                   <div>
                     <label style={labelStyle}>Your name</label>
-                    <input
-                      style={inputStyle}
-                      name="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="Your name"
-                    />
+                    <input style={inputStyle} name="name" value={form.name} onChange={handleChange} placeholder="Your name" />
                   </div>
                   <div>
                     <label style={labelStyle}>Business name</label>
-                    <input
-                      style={inputStyle}
-                      name="business"
-                      value={form.business}
-                      onChange={handleChange}
-                      placeholder="Business name"
-                    />
+                    <input style={inputStyle} name="business" value={form.business} onChange={handleChange} placeholder="Your business" />
                   </div>
                 </div>
 
                 <div>
                   <label style={labelStyle}>Email</label>
-                  <input
-                    type="email"
-                    style={inputStyle}
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="you@company.com"
-                  />
+                  <input type="email" style={inputStyle} name="email" value={form.email} onChange={handleChange} placeholder="you@business.com" />
                 </div>
 
                 <div>
                   <label style={labelStyle}>Industry</label>
-                  <select
-                    name="industry"
-                    value={form.industry}
-                    onChange={handleChange}
-                    style={inputStyle}
-                  >
-                    <option value="">Select your industry</option>
+                  <select name="industry" value={form.industry} onChange={handleChange} style={{ ...inputStyle, appearance: "none" }}>
+                    <option value="">Select your industry...</option>
                     {industries.map((industry) => (
-                      <option key={industry}>{industry}</option>
+                      <option key={industry} value={industry}>{industry}</option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label style={labelStyle}>Project brief</label>
+                  <label style={labelStyle}>Tell us about your business</label>
                   <textarea
                     name="message"
                     value={form.message}
                     onChange={handleChange}
-                    placeholder="What are you launching, and what should the site make people feel?"
-                    style={{ ...inputStyle, minHeight: 150, resize: "vertical" }}
+                    placeholder="What do you do, who are your customers, and what's your biggest online challenge?"
+                    style={{ ...inputStyle, minHeight: 120, resize: "vertical" }}
                   />
                 </div>
 
@@ -239,12 +175,9 @@ export default function Contact() {
                   className="button-primary"
                   onClick={handleSubmit}
                   disabled={loading}
-                  style={{
-                    width: isMobile ? "100%" : "fit-content",
-                    opacity: loading ? 0.75 : 1,
-                  }}
+                  style={{ width: "fit-content", opacity: loading ? 0.75 : 1, padding: "0 32px", borderRadius: 99 }}
                 >
-                  {loading ? "Sending..." : "Send inquiry"}
+                  {loading ? "Sending..." : "Send message →"}
                 </button>
               </div>
             )}

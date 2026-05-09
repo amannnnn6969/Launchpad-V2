@@ -1,40 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg: #050505;
-  --bg-elevated: #0b0b0f;
-  --surface: rgba(17, 17, 17, 0.82);
-  --surface-strong: rgba(20, 20, 24, 0.95);
-  --surface-soft: rgba(255, 255, 255, 0.03);
-  --text: #f5f7ff;
-  --text-soft: #c8d0de;
-  --muted: #8a91a2;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --accent: #8b5cf6;
-  --accent-2: #3b82f6;
-  --accent-glow: rgba(139, 92, 246, 0.22);
-  --blue-glow: rgba(59, 130, 246, 0.18);
-  --hero-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
-  --page-max: 960px;
-  --radius-xl: 14px;
-  --radius-lg: 10px;
-  --radius-md: 8px;
-  --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.34);
+  --bg: #030812;
+  --bg-elevated: #1b1b1c;
+  --surface: rgba(32, 31, 32, 0.7);
+  --surface-strong: rgba(42, 42, 43, 0.95);
+  --surface-soft: rgba(229, 226, 226, 0.05);
+  --text: #e5e2e2;
+  --text-soft: #c5c6cc;
+  --muted: #8f9096;
+  --border: rgba(143, 144, 150, 0.15);
+  --border-strong: rgba(143, 144, 150, 0.35);
+  --accent: #1567ff;
+  --accent-2: #533626;
+  --accent-glow: rgba(21, 103, 255, 0.22);
+  --blue-glow: rgba(83, 54, 38, 0.18);
+  --hero-gradient: linear-gradient(135deg, #1567ff 0%, #e9bda7 100%);
+  --page-max: 1280px;
+  --radius-xl: 1rem;
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --shadow-soft: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-thumb {
+  display: none;
 }
 
 html {
   overflow-x: hidden;
   max-width: 100vw;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -42,10 +71,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   max-width: 100vw;
-  background:
-    radial-gradient(circle at 9% 12%, rgba(139, 92, 246, 0.16), transparent 24%),
-    radial-gradient(circle at 92% 18%, rgba(59, 130, 246, 0.12), transparent 22%),
-    linear-gradient(180deg, #050505 0%, #040409 45%, #050505 100%);
+  background: #030812;
   color: var(--text);
   font-family: "Inter", sans-serif;
   cursor: none;
@@ -91,9 +117,11 @@ main {
 .glass-panel {
   position: relative;
   overflow: hidden;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   box-shadow: none;
 }
 
@@ -134,7 +162,7 @@ main {
 }
 
 .section-title {
-  font-family: "Outfit", sans-serif;
+  font-family: "Clash Display", sans-serif;
   font-size: clamp(2rem, 4.6vw, 3.2rem);
   font-weight: 700;
   line-height: 0.98;
@@ -160,7 +188,7 @@ main {
 }
 
 .hero-liquid-text {
-  font-family: "Outfit", sans-serif;
+  font-family: "Clash Display", sans-serif;
   font-weight: 700;
   letter-spacing: -0.08em;
 }
@@ -206,7 +234,8 @@ main {
   justify-content: center;
   min-height: 44px;
   padding: 0 22px;
-  border-radius: 6px;
+  border-radius: 24px;
+  font-family: "Clash Display", sans-serif;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
@@ -214,7 +243,7 @@ main {
   color: #fff;
   border: none;
   background: var(--hero-gradient);
-  box-shadow: 0 10px 26px rgba(139, 92, 246, 0.26);
+  box-shadow: 0 10px 26px rgba(21, 103, 255, 0.26);
 }
 
 .button-secondary {
@@ -229,7 +258,7 @@ main {
 }
 
 .button-primary:hover {
-  box-shadow: 0 16px 42px rgba(139, 92, 246, 0.35);
+  box-shadow: 0 16px 42px rgba(21, 103, 255, 0.35);
 }
 
 .button-secondary:hover {
@@ -448,7 +477,7 @@ main {
 .service-card h3 {
   position: relative;
   margin-top: 24px;
-  font-family: "Outfit", sans-serif;
+  font-family: "Clash Display", sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   line-height: 1.1;
@@ -535,7 +564,7 @@ main {
 
 .project-card h3 {
   margin-top: 18px;
-  font-family: "Outfit", sans-serif;
+  font-family: "Clash Display", sans-serif;
   color: var(--text);
   font-size: 1.2rem;
   font-weight: 700;

@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { MorphingText } from "@/components/ui/liquid-text";
+import { HeroShapes } from "@/components/ui/shape-landing-hero";
+import { HoverButton } from "@/components/ui/hover-button";
 
 export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);
@@ -16,39 +20,118 @@ export default function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        delay: 0.5 + i * 0.2,
+        ease: [0.25, 0.4, 0.25, 1],
+      },
+    }),
+  };
+
   return (
     <section
       id="hero"
-      style={{
-        padding: isMobile ? "38px 0 50px" : "44px 0 62px",
-        textAlign: "center",
-      }}
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-background"
     >
-      <div className="page-shell">
-        <div className="section-kicker" style={{ marginInline: "auto" }}>
-          Innovation and impact
-        </div>
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1567ff]/[0.05] via-transparent to-[#533626]/[0.05] blur-3xl" />
 
-        <h1
+      {/* Floating shapes background */}
+      <HeroShapes />
+
+      {/* Content */}
+      <div className="relative z-10 page-shell" style={{ textAlign: "center" }}>
+        {/* Badge / Kicker */}
+        <motion.div
+          custom={0}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
+          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full mb-8 md:mb-12"
           style={{
-            margin: "24px auto 0",
-            maxWidth: 760,
-            fontFamily: "Outfit, sans-serif",
-            fontSize: isMobile ? "3rem" : "clamp(4.2rem, 8vw, 5.8rem)",
-            lineHeight: 0.95,
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            color: "var(--text)",
+            background: "rgba(21, 103, 255, 0.08)",
+            border: "1px solid rgba(21, 103, 255, 0.25)",
+            marginTop: 80,
           }}
         >
-          Launchpad
-          <br />
-          Builds digital presence
-          <br />
-          <span className="gradient-text">that feels like a product from the future</span>
-        </h1>
+          <span
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: "999px",
+              background: "#1567ff",
+              boxShadow: "0 0 16px rgba(21, 103, 255, 0.5)",
+              display: "inline-block",
+            }}
+          />
+          <span
+            style={{
+              fontSize: "10px",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase" as const,
+              color: "var(--text-soft)",
+            }}
+          >
+            Innovation and impact
+          </span>
+        </motion.div>
 
-        <p
+        <motion.div
+          custom={1}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <h1
+            className="section-title"
+            style={{
+              margin: "24px auto 0",
+              maxWidth: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.1em",
+            }}
+          >
+            <span style={{ fontWeight: 700, letterSpacing: "-0.04em", fontSize: isMobile ? "3.5rem" : "clamp(4.5rem, 9vw, 7.5rem)" }}>
+              Launch<span className="gradient-text">pad</span>
+            </span>
+            <span style={{ fontWeight: 700, letterSpacing: "-0.02em", fontSize: isMobile ? "2rem" : "clamp(2.8rem, 6vw, 4.5rem)" }}>Builds digital presence</span>
+          </h1>
+
+          <div
+            style={{
+              fontFamily: "'Clash Display', sans-serif",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "0.4em",
+              fontSize: isMobile ? "1.6rem" : "clamp(2rem, 4vw, 2.8rem)",
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.1,
+            }}
+          >
+            <span className="gradient-text" style={{ whiteSpace: "nowrap" }}>that feels</span>
+            <MorphingText
+              texts={["unforgettable", "cinematic", "magnetic", "iconic", "timeless"]}
+              className="!relative !h-[1.4em] !pb-[0.1em] !w-[9ch] sm:!w-[12ch] md:!w-[14ch] !max-w-none !leading-[1.1] !mx-auto"
+            />
+          </div>
+        </motion.div>
+
+        <motion.p
+          custom={2}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
           className="section-copy"
           style={{
             maxWidth: 540,
@@ -57,29 +140,33 @@ export default function Hero() {
             lineHeight: 1.8,
           }}
         >
-          We design launch-ready brand systems, motion-rich web experiences, immersive
-          web, and conversion UX designed as one launch engine. Inevitable from day one.
-        </p>
+          We design fast, modern websites that make brands look premium and convert better.
+        </motion.p>
 
-        <div
+        <motion.div
+          custom={3}
+          variants={fadeUpVariants}
+          initial="hidden"
+          animate="visible"
           style={{
             marginTop: 30,
             display: "flex",
             justifyContent: "center",
             gap: 14,
-            flexWrap: "wrap",
+            flexWrap: "wrap" as const,
           }}
         >
           <button className="button-primary" onClick={() => scrollTo("contact")}>
             Book a strategy call
           </button>
-          <button className="button-secondary" onClick={() => scrollTo("portfolio")}>
+          <HoverButton onClick={() => scrollTo("portfolio")}>
             See our work
-          </button>
-        </div>
-
-        <div className="hero-visual" aria-hidden />
+          </HoverButton>
+        </motion.div>
       </div>
+
+      {/* Fade edges */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/80 pointer-events-none" />
     </section>
   );
 }

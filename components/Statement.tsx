@@ -37,7 +37,7 @@ export default function Statement() {
         <h2
           style={{
             marginTop: 16,
-            fontFamily: "Outfit, sans-serif",
+            fontFamily: "'Clash Display', sans-serif",
             fontWeight: 500,
             fontSize: isMobile ? "1.8rem" : "clamp(2.2rem, 4vw, 3.4rem)",
             lineHeight: 1.08,
