@@ -32,7 +32,7 @@ const footerLinks: FooterSection[] = [
 		links: [
 			{ title: 'Studio', href: '#who' },
 			{ title: 'Services', href: '#services' },
-			{ title: 'Work', href: '#portfolio' },
+			{ title: 'Playground', href: '#portfolio' },
 			{ title: 'Process', href: '#process' },
 		],
 	},
@@ -61,10 +61,15 @@ export function Footer() {
 
 			<div className="grid w-full max-w-6xl mx-auto gap-8 xl:grid-cols-3 xl:gap-8">
 				<AnimatedContainer className="space-y-4">
-					<div 
+	          <div 
             className="text-xl tracking-tight text-white flex items-center" 
             style={{ fontFamily: "'Clash Display', sans-serif", fontWeight: 700 }}
           >
+            <img 
+              src="/logo.svg" 
+              alt="Launchpad Logo" 
+              className="h-8 w-auto mr-2.5"
+            />
             Launch<span className="gradient-text">pad</span>
           </div>
 					<p className="text-muted-foreground mt-8 text-sm md:mt-0" style={{ color: "var(--text-soft)" }}>

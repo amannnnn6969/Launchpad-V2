@@ -64,8 +64,27 @@ export default function Process() {
     <section id="process" style={{ padding: isMobile ? "60px 0" : "100px 0" }}>
       <div className="page-shell" ref={ref}>
         <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 60 }}>
-          <h2 className="section-title section-title--medium" style={{ fontSize: isMobile ? "2.5rem" : "3.5rem" }}>
-            How we work
+          <h2
+            className="section-title section-title--medium"
+            aria-label="How we work"
+            style={{
+              fontSize: isMobile ? "2.5rem" : "3.5rem",
+              letterSpacing: "-0.015em",
+            }}
+          >
+            <span
+              aria-hidden="true"
+              style={{
+                display: "inline-flex",
+                flexWrap: "wrap",
+                gap: "0.2em",
+                justifyContent: "center",
+              }}
+            >
+              <span>How</span>
+              <span>we</span>
+              <span>work</span>
+            </span>
           </h2>
           <p className="section-copy" style={{ marginTop: 12, fontSize: "0.95rem" }}>
             Four steps. No surprises. No disappearing acts.

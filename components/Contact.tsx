@@ -110,7 +110,7 @@ export default function Contact() {
               Start a conversation
             </h3>
             <p style={{ color: "var(--text-soft)", fontSize: "0.95rem", lineHeight: 1.6, marginBottom: 32 }}>
-              No pitch, no pressure. Tell us about your project and we'll tell you honestly if we're the right fit.
+              We'll review your details and get back to you within 24 hours to schedule a quick intro call.
             </p>
 
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -153,9 +153,9 @@ export default function Contact() {
                 <div>
                   <label style={labelStyle}>Industry</label>
                   <select name="industry" value={form.industry} onChange={handleChange} style={{ ...inputStyle, appearance: "none" }}>
-                    <option value="">Select your industry...</option>
+                    <option value="" style={{ background: "#0a0a0a", color: "white" }}>Select your industry...</option>
                     {industries.map((industry) => (
-                      <option key={industry} value={industry}>{industry}</option>
+                      <option key={industry} value={industry} style={{ background: "#0a0a0a", color: "white" }}>{industry}</option>
                     ))}
                   </select>
                 </div>

@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const menuItems = [
   { name: 'Studio', href: '#who' },
   { name: 'Services', href: '#services' },
-  { name: 'Work', href: '#portfolio' },
+  { name: 'Playground', href: '#portfolio' },
   { name: 'Process', href: '#process' },
 ];
 
@@ -19,6 +19,11 @@ const Logo = ({ className }: { className?: string }) => {
       className={cn("text-xl tracking-tight text-white flex items-center", className)} 
       style={{ fontFamily: "'Clash Display', sans-serif", fontWeight: 700 }}
     >
+      <img 
+        src="/logo.svg" 
+        alt="Launchpad Logo" 
+        className="h-8 w-auto mr-2.5"
+      />
       Launch<span className="gradient-text">pad</span>
     </div>
   );

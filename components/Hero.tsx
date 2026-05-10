@@ -119,7 +119,19 @@ export default function Hero() {
               lineHeight: 1.1,
             }}
           >
-            <span className="gradient-text" style={{ whiteSpace: "nowrap" }}>that feels</span>
+            <span
+              className="gradient-text"
+              style={{
+                display: "inline-flex",
+                gap: "0.18em",
+                justifyContent: "center",
+                letterSpacing: "-0.015em",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span>that</span>
+              <span>feels</span>
+            </span>
             <MorphingText
               texts={["unforgettable", "cinematic", "magnetic", "iconic", "timeless"]}
               className="!relative !h-[1.4em] !pb-[0.1em] !w-[9ch] sm:!w-[12ch] md:!w-[14ch] !max-w-none !leading-[1.1] !mx-auto"

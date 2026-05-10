@@ -36,21 +36,21 @@ export default function Portfolio() {
   const projects = [
     {
       title: "Meteoric Boost",
-      tag: "FEATURED WORK",
-      desc: "PERSONAL BRAND AGENCY - SYDNEY, AU\n\nA cinematic web presence for a 140k-follower personal brand agency. Dark, bold, and built to convert.",
-      tech: ["Next.js 14", "Framer Motion", "Three.js", "Dark Cinematic"],
+      tag: "CONCEPT 01",
+      desc: "PERSONAL BRAND DESIGN\n\nAn exploration in high-contrast cinematic web design. Dark, bold, and focused on extreme typography.",
+      tech: ["Next.js 14", "Framer Motion", "Liquid Text"],
       featured: true
     },
     {
-      title: "Next Project",
-      tag: "COMING SOON",
-      desc: "In Progress — 2025",
+      title: "Project: Horizon",
+      tag: "IN LAB",
+      desc: "Experimental layout exploration for creative studios.",
       featured: false
     },
     {
-      title: "Next Project",
-      tag: "COMING SOON",
-      desc: "In Progress — 2025",
+      title: "Project: Catalyst",
+      tag: "IN LAB",
+      desc: "Exploring motion systems for e-commerce.",
       featured: false
     }
   ];
@@ -60,10 +60,10 @@ export default function Portfolio() {
       <div className="page-shell">
         <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 60 }}>
           <h2 className="section-title section-title--medium" style={{ fontSize: isMobile ? "2.5rem" : "3.5rem" }}>
-            Selected Work
+            The Playground
           </h2>
           <p className="section-copy" style={{ marginTop: 12, fontSize: "0.95rem" }}>
-            A growing portfolio of digital experiences. Each one built from scratch.
+            A collection of experimental builds and concept sites. Where we push the limits of motion and design.
           </p>
         </div>
 
