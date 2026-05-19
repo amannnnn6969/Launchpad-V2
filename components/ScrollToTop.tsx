@@ -24,7 +24,7 @@ export default function ScrollToTop() {
         zIndex: 500,
         width: 44,
         height: 44,
-        borderRadius: "50%",
+        borderRadius: "6px",
         border: "1px solid rgba(79,142,255,0.35)",
         background: hovered
           ? "rgba(79,142,255,0.25)"

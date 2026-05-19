@@ -95,7 +95,7 @@ export default function Portfolio() {
                     alignItems: "center",
                     gap: "8px",
                     padding: "4px 12px",
-                    borderRadius: "99px",
+                    borderRadius: 6,
                     border: "1px solid rgba(255,255,255,0.1)",
                     fontSize: "0.7rem",
                     letterSpacing: "0.1em",
@@ -129,7 +129,7 @@ export default function Portfolio() {
                 {project.featured && project.tech && (
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: 32 }}>
                     {project.tech.map((t) => (
-                      <span key={t} style={{ fontSize: "0.75rem", padding: "6px 14px", borderRadius: "99px", border: "1px solid rgba(255,255,255,0.15)", color: "var(--text)" }}>
+                      <span key={t} style={{ fontSize: "0.75rem", padding: "6px 14px", borderRadius: 6, border: "1px solid rgba(255,255,255,0.15)", color: "var(--text)" }}>
                         {t}
                       </span>
                     ))}

@@ -90,7 +90,7 @@ export default function CtaBanner() {
             <button
               className="button-primary"
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              style={{ padding: "16px 36px", fontSize: "1rem", borderRadius: 99 }}
+              style={{ padding: "16px 36px", fontSize: "1rem", borderRadius: 6 }}
             >
               Start a conversation →
             </button>

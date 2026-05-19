@@ -51,7 +51,12 @@ const config: Config = {
         "surface-variant": "#353535",
         seed: "#1567ff",
         copper: "#533626",
-        cobalt: "#031855"
+        cobalt: "#031855",
+        space: {
+          950: '#050814',
+          900: '#0a0f24',
+          800: '#121b38',
+        }
       },
       animation: {
         first: "moveVertical 30s ease infinite",
@@ -59,6 +64,8 @@ const config: Config = {
         third: "moveInCircle 40s linear infinite",
         fourth: "moveHorizontal 40s ease infinite",
         fifth: "moveInCircle 20s ease infinite",
+        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "laser-flow": "flow 4s linear infinite",
       },
       keyframes: {
         moveHorizontal: {
@@ -93,6 +100,10 @@ const config: Config = {
           "100%": {
             transform: "translateY(-50%)",
           },
+        },
+        flow: {
+          "0%": { backgroundPosition: "200% center" },
+          "100%": { backgroundPosition: "-200% center" },
         },
       },
     },

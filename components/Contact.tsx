@@ -175,7 +175,7 @@ export default function Contact() {
                   className="button-primary"
                   onClick={handleSubmit}
                   disabled={loading}
-                  style={{ width: "fit-content", opacity: loading ? 0.75 : 1, padding: "0 32px", borderRadius: 99 }}
+                  style={{ width: "fit-content", opacity: loading ? 0.75 : 1, padding: "0 32px", borderRadius: 6 }}
                 >
                   {loading ? "Sending..." : "Send message →"}
                 </button>

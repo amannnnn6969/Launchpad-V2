@@ -142,7 +142,7 @@ main {
   align-items: center;
   gap: 10px;
   padding: 7px 12px;
-  border-radius: 999px;
+  border-radius: 6px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.03);
   color: var(--text-soft);
@@ -212,11 +212,11 @@ main {
   justify-content: center;
   min-height: 34px;
   padding: 8px 14px;
-  border-radius: 999px;
+  border-radius: 6px;
   font-size: 0.82rem;
   color: var(--text);
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
 }
 
 .pill-accent {
@@ -234,7 +234,7 @@ main {
   justify-content: center;
   min-height: 44px;
   padding: 0 22px;
-  border-radius: 24px;
+  border-radius: 6px;
   font-family: "Clash Display", sans-serif;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
@@ -623,4 +623,14 @@ main {
   .portfolio-link {
     justify-self: start;
   }
+}
+
+/* Process section custom effects */
+.laser-line {
+  background-size: 200% auto;
+}
+
+.card-hover-effect:hover .bg-number {
+  transform: translate(-50%, -50%) scale(1.05);
+  opacity: 0.04;
 }

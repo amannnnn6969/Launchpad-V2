@@ -48,7 +48,7 @@ export default function Navbar() {
     >
       <div
         className={cn(
-          "mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 border border-transparent rounded-[32px] lg:px-12",
+          "mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 border border-transparent rounded-md lg:px-12",
           isScrolled && "bg-background/50 max-w-4xl border-white/5 backdrop-blur-lg lg:px-5"
         )}
       >
@@ -91,7 +91,7 @@ export default function Navbar() {
             </ul>
           </div>
 
-          <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+          <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-md border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
             <div className="lg:hidden">
               <ul className="space-y-6 text-base">
                 {menuItems.map((item, index) => (
@@ -111,7 +111,7 @@ export default function Navbar() {
                 asChild
                 size="sm"
                 className={cn("button-primary", isScrolled ? "lg:inline-flex" : "")}
-                style={{ borderRadius: "999px" }}
+                style={{ borderRadius: "6px" }}
               >
                 <Link href="#contact">
                   <span>Get Started</span>

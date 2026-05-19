@@ -2,6 +2,7 @@
 import React from 'react';
 import type { ComponentProps, ReactNode } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { Instagram, Youtube, Linkedin } from 'lucide-react';
 
 interface FooterLink {
 	title: string;
@@ -14,17 +15,7 @@ interface FooterSection {
 	links: FooterLink[];
 }
 
-function SocialMark({ className, children }: { className?: string; children: ReactNode }) {
-	return (
-		<span className={className} aria-hidden>
-			{children}
-		</span>
-	);
-}
 
-const InstagramMark = ({ className }: { className?: string }) => <SocialMark className={className}>IG</SocialMark>;
-const YoutubeMark = ({ className }: { className?: string }) => <SocialMark className={className}>YT</SocialMark>;
-const LinkedinMark = ({ className }: { className?: string }) => <SocialMark className={className}>IN</SocialMark>;
 
 const footerLinks: FooterSection[] = [
 	{
@@ -47,9 +38,9 @@ const footerLinks: FooterSection[] = [
 	{
 		label: 'Social Links',
 		links: [
-			{ title: 'Instagram', href: '#', icon: InstagramMark },
-			{ title: 'Youtube', href: '#', icon: YoutubeMark },
-			{ title: 'LinkedIn', href: '#', icon: LinkedinMark },
+			{ title: 'Instagram', href: 'https://www.instagram.com/launchpadweb.agency/?hl=en', icon: Instagram },
+			{ title: 'Youtube', href: '#', icon: Youtube },
+			{ title: 'LinkedIn', href: '#', icon: Linkedin },
 		],
 	},
 ];

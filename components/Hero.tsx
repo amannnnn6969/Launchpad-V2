@@ -52,7 +52,7 @@ export default function Hero() {
           variants={fadeUpVariants}
           initial="hidden"
           animate="visible"
-          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full mb-8 md:mb-12"
+          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-md mb-8 md:mb-12"
           style={{
             background: "rgba(21, 103, 255, 0.08)",
             border: "1px solid rgba(21, 103, 255, 0.25)",
